@@ -1,0 +1,313 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'aos/dist/aos.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    /* Custom Project Colors */
+    --color-primary: #2f73f2;
+    --color-darkprimary: #1a5cd4;
+    --color-secondary: #102c46;
+    --color-SereneSky: #8facc6;
+    --color-ElectricAqua: #46c4ff;
+    --color-RegalBlue: #13439b;
+    --color-LightYellow: #ffe15a;
+    --color-IcyBreeze: #effbff;
+    --color-PaleCyan: #cff4ff;
+    --color-Aquamarine: #7df9c2;
+    --color-MidnightNavyText: #102d47;
+    --color-SlateBlueText: #547593;
+    --color-PaleSkyBlu: #e0f7ff;
+    --color-MistyTealText: #6f9dac;
+    --color-OliveDrab: #73713c;
+    --color-CadetBlue: #879aac;
+    --color-Dandelion: #f2ec1d;
+    --color-SkyBlueMist: #c0d5fb;
+    --color-LightSkyBlue: #b2d5ea;
+    --color-Salem: #1c7c52;
+    --color-YellowRating: #fab446;
+    --color-PaleCerulean: #a3bbd1;
+    --color-PeriwinkleBorder: #c0d5fb;
+    --color-LightBlueBorder: #4f8bfb;
+    --color-OceanDepthsDarkBorder: #224767;
+    --color-PowderBlueBorder: #e1f1f6;
+    --color-darkLineColor: #24497c;
+    --color-darkmode: #011120;
+    --color-darklight: #0d1a2c;
+    --color-darktext: #7f8487;
+    --color-dark_border: #224767;
+    --color-dark_input: #1b2430;
+    --color-midnight_text: #1b2430;
+
+    /* Custom Font Sizes */
+    --text-58: 3.625rem;
+    --text-58--line-height: 5.375rem;
+    --text-53: 3.3125rem;
+    --text-53--line-height: 3.875rem;
+    --text-48: 3rem;
+    --text-48--line-height: 3.39rem;
+    --text-40: 2.5rem;
+    --text-40--line-height: 3.4375rem;
+    --text-36: 2.25rem;
+    --text-36--line-height: 2.625rem;
+    --text-34: 2.125rem;
+    --text-34--line-height: 2.7669rem;
+    --text-32: 2rem;
+    --text-32--line-height: 2.5rem;
+    --text-28: 1.75rem;
+    --text-28--line-height: 2.25rem;
+    --text-26: 1.625rem;
+    --text-26--line-height: 2.1156rem;
+    --text-24: 1.5rem;
+    --text-24--line-height: 2rem;
+    --text-22: 1.375rem;
+    --text-22--line-height: 2rem;
+    --text-20: 1.25rem;
+    --text-20--line-height: 2.125rem;
+    --text-19: 1.1875rem;
+    --text-19--line-height: 1.625rem;
+    --text-17: 1.0625rem;
+    --text-17--line-height: 1.4875rem;
+    --text-16: 1rem;
+    --text-16--line-height: 1.6875rem;
+    --text-15: 0.9375rem;
+    --text-15--line-height: 1.4375rem;
+
+    /* Custom Spacing */
+    --spacing-13: 3.125rem;
+    --spacing-14: 3.5rem;
+    --spacing-30: 1.875rem;
+    --spacing-109: 6.8125rem;
+    --spacing-219: 13.6875rem;
+    --spacing-266: 16.625rem;
+    --spacing-286: 17.875rem;
+    --spacing-364: 22.8rem;
+    --spacing-397: 24.8125rem;
+    --spacing-404: 25.25rem;
+    --spacing-506: 31.625rem;
+    --spacing-526: 32.875rem;
+    --spacing-632: 39.5rem;
+    --spacing-650: 40.625rem;
+    --spacing-687: 42.9375rem;
+    --spacing-770: 48.125rem;
+    --spacing-920: 57.5rem;
+    --spacing-1068: 66.75rem;
+    --spacing-1170: 73.125rem;
+    --spacing-1200: 75rem;
+
+    /* Custom Border Radius */
+    --radius-14: 0.875rem;
+    --radius-22: 1.375rem;
+    --radius-166: 10.375rem;
+    --radius-182: 11.375rem;
+    --radius-214: 13.375rem;
+
+    /* Custom Box Shadows */
+    --shadow-hero-box: 0px 10px 20px 0px #00000026;
+    --shadow-round-box: 0px 6px 10px 0px #00000026;
+    --shadow-darkmd:
+        rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
+        rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+}
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: #2f73f2;
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: #102c46;
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.87 0 0);
+    --radius: 0.625rem;
+}
+
+.dark {
+    --background: #011120;
+    --foreground: oklch(0.985 0 0);
+    --card: #0d1a2c;
+    --card-foreground: oklch(0.985 0 0);
+    --popover: #0d1a2c;
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: #2f73f2;
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: #102c46;
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.396 0.141 25.723);
+    --destructive-foreground: oklch(0.637 0.237 25.331);
+    --border: #224767;
+    --input: #1b2430;
+    --ring: oklch(0.439 0 0);
+}
+
+@layer base {
+    * {
+        border-color: var(--border);
+    }
+
+    body {
+        background-color: var(--background);
+        color: var(--foreground);
+    }
+
+    .home-layout {
+        --color-primary: #2f73f2;
+        --color-darkprimary: #1a5cd4;
+        --color-secondary: #102c46;
+        --primary: #2f73f2;
+        --secondary: #102c46;
+    }
+}
+
+@layer components {
+    .home-layout {
+        section {
+            @apply py-10 md:py-20;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            font-size: 1.0625rem;
+            font-weight: 400;
+            color: var(--color-SlateBlueText);
+        }
+
+        h1 {
+            @apply font-bold dark:text-white;
+            font-size: 2.5rem;
+            line-height: 3.4375rem;
+            color: var(--color-MidnightNavyText);
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3.3125rem;
+                line-height: 3.875rem;
+            }
+        }
+
+        h2 {
+            @apply font-bold dark:text-white;
+            font-size: 1.75rem;
+            line-height: 2.25rem;
+            color: var(--color-MidnightNavyText);
+        }
+
+        @media (min-width: 768px) {
+            h2 {
+                font-size: 2.5rem;
+                line-height: 3.4375rem;
+            }
+        }
+
+        .btn_primary {
+            @apply inline-block cursor-pointer rounded-lg px-8 py-3 text-white transition-all;
+            transition-duration: 0.4s;
+            background-color: var(--color-primary);
+        }
+
+        .container {
+            @apply m-auto block w-full max-w-[75rem]! px-7! py-0;
+        }
+
+        .btn {
+            @apply relative inline-block cursor-pointer border-none bg-transparent before:absolute before:content-[''] after:absolute after:content-[''];
+        }
+
+        .btn span {
+            @apply relative top-0 left-0 inline-block w-full px-7 py-4 font-medium transition-all;
+            font-size: 1.0625rem;
+            transition-duration: 0.4s;
+        }
+
+        .btn-1::before {
+            @apply transition-all;
+            transition-duration: 0.4s;
+            background-color: var(--color-primary);
+        }
+
+        .btn-1 span {
+            @apply rounded-lg border border-solid text-white transition-all;
+            transition-duration: 0.4s;
+            border-color: var(--color-primary);
+        }
+
+        .btn-1 span:hover {
+            @apply transition-all;
+            transition-duration: 0.4s;
+            color: var(--color-primary);
+        }
+
+        .btn.hover-filled-slide-down::before {
+            @apply right-0 bottom-0 left-0 h-full w-full;
+        }
+
+        .btn.hover-filled-slide-down:hover::before {
+            @apply h-0;
+        }
+
+        .btn_outline {
+            @apply relative inline-block cursor-pointer border-none bg-transparent before:absolute before:content-[''] after:absolute after:content-[''];
+        }
+
+        .btn_outline span {
+            @apply relative top-0 left-0 inline-block w-full px-7 py-4 font-medium transition-all;
+            font-size: 1.0625rem;
+            transition-duration: 0.4s;
+        }
+
+        .btn-2::before {
+            @apply rounded-lg transition-all;
+            transition-duration: 0.4s;
+            background-color: var(--color-primary);
+        }
+
+        .btn-2 span {
+            @apply rounded-lg border border-solid transition-all;
+            transition-duration: 0.4s;
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .btn-2 span:hover {
+            @apply text-white transition-all;
+            transition-duration: 0.4s;
+        }
+
+        .btn_outline.hover-outline-slide-down::before {
+            @apply top-0 right-0 left-0 h-0 w-full;
+        }
+
+        .btn_outline.hover-outline-slide-down:hover::before {
+            @apply h-full;
+        }
+    }
+}
+
+/* Rich Text & Isolated Prose */
+.isolated-prose p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0.8em 0 1em;
+}
