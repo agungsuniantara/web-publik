@@ -6,9 +6,9 @@ import { useI18n } from '@/components/providers/I18nProvider';
 
 export default function ContactClient() {
     const { t } = useI18n();
-    const contactEmail = 'info@umacoding.com';
-    const contactPhone = '+62 812-3456-7890';
-    const contactAddress = 'Jl. Uma Coding No. 88, Canggu, Kuta Utara, Badung, Bali';
+    const contactEmail = 'umacoding.bali@gmail.com';
+    const contactPhone = '+62 896-0240-2811';
+    const contactAddress = 'Melayani private coding class ke rumah, kelas offline, dan kelas online di Bali.';
 
     const breadcrumbs = [
         { href: '/', text: 'Home' },
@@ -112,19 +112,48 @@ export default function ContactClient() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    {/* Google Maps Embed */}
-                    <div className="pt-16 md:pt-20">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.635921280619!2d115.1544014!3d-8.6309065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd239112c4ef133%3A0x7a969ef3cbf52106!2sUma%20Coding!5e0!3m2!1sen!2sid!4v1769092503512!5m2!1sen!2sid"
-                            width="1114"
-                            height="477"
-                            style={{ border: 0 }}
-                            allowFullScreen={true}
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            className="w-full rounded-lg"
-                        ></iframe>
+            {/* FAQ Section */}
+            <div className="dark:bg-darkmode py-16">
+                <div className="container mx-auto md:max-w-3xl lg:max-w-4xl">
+                    <h2 className="mb-10 text-center text-[28px] font-bold leading-9 text-secondary sm:text-[40px] dark:text-white">
+                        {t('Frequently Asked Questions')}
+                    </h2>
+                    <div className="grid gap-6 md:grid-cols-2">
+                        <div className="dark:bg-darklight rounded-2xl bg-white p-6 shadow-sm">
+                            <h4 className="text-secondary mb-3 text-lg font-bold dark:text-white">
+                                {t('Do you offer online classes?')}
+                            </h4>
+                            <p className="text-SlateBlueText text-base leading-relaxed">
+                                {t('Yes, we provide both online and offline private coding classes. Our flexible schedule allows you to learn from anywhere.')}
+                            </p>
+                        </div>
+                        <div className="dark:bg-darklight rounded-2xl bg-white p-6 shadow-sm">
+                            <h4 className="text-secondary mb-3 text-lg font-bold dark:text-white">
+                                {t('Can the mentor come to my house?')}
+                            </h4>
+                            <p className="text-SlateBlueText text-base leading-relaxed">
+                                {t('Absolutely! We offer private home-visit sessions for students located in the Bali area. Our mentors will come directly to you.')}
+                            </p>
+                        </div>
+                        <div className="dark:bg-darklight rounded-2xl bg-white p-6 shadow-sm">
+                            <h4 className="text-secondary mb-3 text-lg font-bold dark:text-white">
+                                {t('What age group is suitable?')}
+                            </h4>
+                            <p className="text-SlateBlueText text-base leading-relaxed">
+                                {t('Our programs are thoughtfully designed for kids, teens, and adults. We tailor the curriculum based on age, skill level, and learning goals.')}
+                            </p>
+                        </div>
+                        <div className="dark:bg-darklight rounded-2xl bg-white p-6 shadow-sm">
+                            <h4 className="text-secondary mb-3 text-lg font-bold dark:text-white">
+                                {t('How do I register?')}
+                            </h4>
+                            <p className="text-SlateBlueText text-base leading-relaxed">
+                                {t('You can easily register by contacting us via WhatsApp or Email. We will guide you through the available programs and schedules.')}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

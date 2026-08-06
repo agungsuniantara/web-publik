@@ -3,6 +3,8 @@ import { Blog } from '@/types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
     params: Promise<{ slug: string }>;
 }
@@ -25,18 +27,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const { slug } = await params;
     const post = await getBlogDetails(slug);
     if (!post) return { title: 'Article Not Found' };
-    const cleanExcerpt = post.excerpt || post.content?.replace(/<[^>]*>?/gm, '').slice(0, 160) || post.title;
+    const rawExcerpt = post.excerpt || post.content?.replace(/<[^>]*>?/gm, '') || post.title;
+    const cleanExcerpt = rawExcerpt.slice(0, 145);
     const coverImage = post.cover_image_path || post.cover_image;
 
+    const maxTitleLength = 60;
+    const metaTitle = post.title.length > maxTitleLength
+        ? `${post.title.substring(0, maxTitleLength - 3)}...`
+        : post.title;
+
     return {
-        title: `${post.title} | Uma Coding Blog`,
+        title: {
+            absolute: metaTitle,
+        },
         description: cleanExcerpt,
         authors: [{ name: post.author?.name || 'Uma Coding' }],
         alternates: {
             canonical: `./`,
         },
         openGraph: {
-            title: post.title,
+            title: metaTitle,
             description: cleanExcerpt,
             type: 'article',
             publishedTime: post.published_at || post.created_at,
@@ -45,7 +55,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         },
         twitter: {
             card: 'summary_large_image',
-            title: post.title,
+            title: metaTitle,
             description: cleanExcerpt,
             images: coverImage ? [coverImage] : [],
         },
@@ -109,7 +119,18 @@ export default async function BlogDetailPage({ params }: PageProps) {
                             </span>
                         )}
                         <h1 className="mb-6 text-3xl font-extrabold leading-tight tracking-tight text-secondary md:text-5xl dark:text-white">
-                            {post.title}
+                            {(() => {
+                                let shortTitle = post.title;
+                                if (shortTitle.includes(':')) {
+                                    shortTitle = shortTitle.split(':')[0];
+                                } else if (shortTitle.includes('?')) {
+                                    shortTitle = shortTitle.split('?')[0] + '?';
+                                }
+                                if (shortTitle.length > 70) {
+                                    shortTitle = shortTitle.substring(0, 67) + '...';
+                                }
+                                return shortTitle;
+                            })()}
                         </h1>
 
                         <div className="flex items-center justify-center gap-4">

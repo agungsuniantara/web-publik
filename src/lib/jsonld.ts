@@ -16,7 +16,7 @@ export function createWebSiteSchema(siteUrl = 'https://umacoding.com') {
         '@type': 'WebSite',
         name: 'Uma Coding',
         url: siteUrl,
-        description: 'Coding Classes for Kids & Teens in Bali',
+        description: 'Kursus Coding untuk Anak, Remaja & Dewasa di Bali',
         publisher: defaultOrganization,
         potentialAction: {
             '@type': 'SearchAction',
@@ -33,13 +33,12 @@ export function createEducationalOrganizationSchema(siteUrl = 'https://umacoding
         name: 'Uma Coding Bali',
         url: siteUrl,
         logo: `${siteUrl}/logo.png`,
-        description: 'Coding classes, game development, and programming bootcamps for kids and teens in Bali.',
+        description: 'Kursus coding untuk anak, remaja, dan dewasa. Tersedia kelas private ke rumah, small group, offline, dan online di Bali.',
         address: {
             '@type': 'PostalAddress',
-            streetAddress: 'Jl. Raya Kerobokan No. 88',
-            addressLocality: 'Kuta Utara',
+            streetAddress: 'Melayani private coding class ke rumah, kelas offline, dan kelas online di Bali',
+            addressLocality: 'Denpasar',
             addressRegion: 'Bali',
-            postalCode: '80361',
             addressCountry: 'ID',
         },
         geo: {

@@ -15,36 +15,48 @@ export default function FaqSection() {
 
     const faqs: FaqItem[] = [
         {
-            question: t('What age can my child start coding at Uma Coding?'),
-            answer: t('We accept students from age 6 in our Junior Program (using Scratch Junior, Scratch, and Construct 3) and from age 13 in our Senior Program (Java, Python, Data Science, web, and full stack development).'),
+            question: t('Can the mentor come directly to my house?'),
+            answer: t('Yes, we provide private classes where the mentor comes directly to the student\'s house in our service areas.'),
         },
         {
-            question: t('Do you offer private coding classes in Bali?'),
-            answer: t('Yes. We offer private 1-on-1 coding classes for kids, teens, and adults across Bali, including Canggu, Denpasar, Badung, and Ubud. Online private sessions are also available.'),
+            question: t('Are there coding classes for kids?'),
+            answer: t('Certainly, we have fun foundational programs to introduce logic, creativity, and technology for children.'),
         },
         {
-            question: t('Is there a coding class for homeschool students?'),
-            answer: t('Yes. Our Homeschooling Class is built around flexible scheduling and integrates easily with homeschool curricula for both junior and senior students.'),
+            question: t('Does Uma Coding have classes for adults?'),
+            answer: t('Yes, we have programs for beginners, university students, workers, and professionals looking to learn or improve coding skills.'),
         },
         {
-            question: t('What is the difference between a regular class and a private class?'),
-            answer: t('Regular classes are small group sessions (maximum 4 students) for collaborative learning. Private classes are 1-on-1 with a dedicated mentor for a fully personalised pace and curriculum.'),
+            question: t('Are online classes available?'),
+            answer: t('Yes, besides offline classes, we also provide live online classes guided by our mentors.'),
         },
         {
-            question: t('What programming languages do you teach?'),
-            answer: t('We teach Scratch, Scratch Junior, Construct 3, Roblox Studio with Lua, Python, Data Science, Pseudocode, Java, and a full Full Stack Developer curriculum including HTML, CSS, JavaScript, React, Laravel, and databases.'),
+            question: t('Does the student need their own laptop?'),
+            answer: t('Yes, students are expected to have their own laptop to maximize the learning process and work on independent projects.'),
         },
         {
-            question: t('Do you teach online or only in Bali?'),
-            answer: t('We teach both. Our Bali head office is in Denpasar and we offer offline classes on-site. Online classes are available for students anywhere in Indonesia and beyond.'),
+            question: t('How do I choose the right program?'),
+            answer: t('You can consult with us for free via WhatsApp to get program recommendations suited for the student\'s age, interests, and learning goals.'),
         },
         {
-            question: t('How do I register my child for a coding class?'),
-            answer: t('You can browse our programs page, choose the right course, and contact us via WhatsApp or the contact form. We will help you pick the right class format and schedule.'),
+            question: t('Are private and small group classes available?'),
+            answer: t('Yes, we provide 1-on-1 private home classes and small group class options so the learning process remains focused and interactive.'),
+        },
+        {
+            question: t('How long is each meeting?'),
+            answer: t('Generally, each meeting lasts between 60 to 90 minutes, tailored to the program, age, and focus level of the student.'),
+        },
+        {
+            question: t('Are trial classes available?'),
+            answer: t('Please contact our team via WhatsApp to get information regarding trial class availability or introductory sessions.'),
+        },
+        {
+            question: t('Which areas do you serve for private coding classes?'),
+            answer: t('Currently we serve private mentor-to-home classes in Bali. For students outside that area, we offer online class options.'),
         },
     ];
 
-    const whatsappUrl = 'https://wa.me/6281234567890';
+    const whatsappUrl = 'https://wa.me/6289602402811?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding';
 
     return (
         <section className="dark:bg-darklight bg-IcyBreeze py-24">
@@ -57,10 +69,10 @@ export default function FaqSection() {
                             {t('FAQ')}
                         </span>
                         <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-secondary md:text-4xl dark:text-white">
-                            {t('Coding Class Questions from Parents and Students')}
+                            {t('Frequently Asked Questions')}
                         </h2>
                         <p className="text-SlateBlueText mb-8 text-lg dark:text-opacity-80">
-                            {t('Answers to the most common questions about our coding classes, bootcamps, and programs in Bali.')}
+                            {t('Answers to common questions about our coding classes, schedules, and programs offered.')}
                         </p>
 
                         {/* WhatsApp / Contact CTA box */}
@@ -70,11 +82,11 @@ export default function FaqSection() {
                                     <MessageCircle className="h-5 w-5" />
                                 </div>
                                 <h4 className="text-base font-bold text-secondary dark:text-white">
-                                    {t('Still have questions?')}
+                                    {t('Still Have Questions?')}
                                 </h4>
                             </div>
                             <p className="text-SlateBlueText mb-5 text-sm dark:text-opacity-70">
-                                {t('Get in touch with us directly on WhatsApp. We are here to help you pick the right program for your child.')}
+                                {t('Contact us via WhatsApp for consultation regarding the most suitable program for you or your child.')}
                             </p>
                             <a
                                 href={whatsappUrl}

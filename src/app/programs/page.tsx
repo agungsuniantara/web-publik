@@ -4,26 +4,26 @@ import ProgramCard from '@/components/programs/ProgramCard';
 import { Course, PaginatedData } from '@/types';
 import { Search } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
-    title: 'Coding Programs & Bootcamps in Bali | Uma Coding',
+    title: 'Program Kursus Coding Terbaik di Bali',
     description:
-        'Explore our range of comprehensive coding programs in Bali from Scratch and Roblox to Python, Java, and Full Stack Web Development.',
+        'Jelajahi berbagai pilihan program kursus coding di Bali untuk anak, remaja, dan dewasa.',
     keywords: [
-        'coding classes Bali',
-        'programming bootcamps Bali',
-        'Scratch coding Bali',
-        'Roblox coding Bali',
-        'Python course Bali',
-        'Java course Bali',
-        'full stack web development Bali',
+        'program coding Bali',
+        'kursus coding Bali',
+        'private coding class',
+        'coding untuk anak',
+        'belajar coding',
     ],
     alternates: {
         canonical: './',
     },
     openGraph: {
-        title: 'Coding Programs & Bootcamps in Bali | Uma Coding',
+        title: 'Program Kursus Coding Terbaik di Bali',
         description:
-            'Explore our range of comprehensive coding programs in Bali from Scratch and Roblox to Python, Java, and Full Stack Web Development.',
+            'Jelajahi berbagai pilihan program kursus coding di Bali untuk anak, remaja, dan dewasa.',
         url: 'https://umacoding.com/programs',
     },
 };
@@ -66,9 +66,9 @@ export default async function ProgramsPage({ searchParams }: PageProps) {
     const collectionSchema = {
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: 'Coding Programs & Courses at Uma Coding Bali',
+        name: 'Program Kursus Coding di Uma Coding',
         url: 'https://umacoding.com/programs',
-        description: 'Browse all available coding courses and bootcamps for kids, teens, and adults.',
+        description: 'Jelajahi semua program kursus coding untuk anak, remaja, dan dewasa.',
         mainEntity: {
             '@type': 'ItemList',
             itemListElement: courses.map((c, index) => ({
@@ -89,7 +89,7 @@ export default async function ProgramsPage({ searchParams }: PageProps) {
             <HeroSub
                 headingType="h1"
                 title="Our Programs"
-                description="Explore our range of comprehensive coding programs designed to take you from beginner to job-ready developer."
+                description="Explore our range of coding programs designed for kids, teens, and adults of all skill levels."
                 breadcrumbLinks={breadcrumbs}
                 className="pb-24 md:pb-32"
             />
@@ -108,7 +108,7 @@ export default async function ProgramsPage({ searchParams }: PageProps) {
                             type="text"
                             name="search"
                             defaultValue={search}
-                            placeholder="Search programs..."
+                            placeholder="Search for courses..."
                             className="text-secondary placeholder:text-SlateBlueText dark:bg-darklight dark:border-gray-800 w-full rounded-full border border-gray-200 bg-white py-5 pr-6 pl-16 text-lg shadow-[0px_6px_10px_0px_#00000026] transition-all focus:ring-2 focus:ring-primary/20 focus:outline-none dark:text-white"
                         />
                     </form>
@@ -126,7 +126,7 @@ export default async function ProgramsPage({ searchParams }: PageProps) {
                             </div>
                         ) : (
                             <div className="py-12 text-center text-gray-500">
-                                <p>No programs found matching your criteria.</p>
+                                <p>No programs found matching your search.</p>
                             </div>
                         )}
                     </div>

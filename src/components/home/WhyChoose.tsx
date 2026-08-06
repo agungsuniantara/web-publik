@@ -27,7 +27,7 @@ export default function WhyChoose({ courses = [] }: Props) {
         'Logic & Thinking',
     ];
 
-    const whatsappUrl = 'https://wa.me/6281234567890';
+    const whatsappUrl = 'https://wa.me/6289602402811?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding';
 
     return (
         <section className="dark:bg-darkmode bg-white py-24">
@@ -40,10 +40,10 @@ export default function WhyChoose({ courses = [] }: Props) {
                         {t('Why Parents Choose Uma Coding')}
                     </span>
                     <h2 className="mb-4 max-w-4xl text-3xl font-extrabold tracking-tight text-secondary md:text-4xl dark:text-white">
-                        {t('Coding Classes for Kids, Teens, and Homeschool Students in Bali')}
+                        {t('Why Choose Uma Coding?')}
                     </h2>
                     <p className="text-SlateBlueText dark:text-opacity-80 mx-auto max-w-3xl text-lg leading-relaxed">
-                        {t('Uma Coding is a Bali-based coding school that helps children and teens learn programming through hands-on projects, friendly mentors, and small class sizes. Our coding bootcamps are designed for beginners through to job-ready developers.')}
+                        {t('Uma Coding is a trusted coding class provider that helps kids, teens, and adults learn programming through practical projects, friendly mentors, and interactive classes. We are here to help every student achieve their goals.')}
                     </p>
                 </div>
 
@@ -262,7 +262,7 @@ export default function WhyChoose({ courses = [] }: Props) {
                 {/* Bottom CTA Buttons */}
                 <div className="mt-16 flex flex-wrap items-center justify-center gap-4" data-aos="fade-up">
                     <Link
-                        href="/programs"
+                        href="#programs"
                         className="btn btn-1 hover-filled-slide-down overflow-hidden rounded-xl"
                     >
                         <span>{t('View Programs')}</span>
@@ -273,7 +273,7 @@ export default function WhyChoose({ courses = [] }: Props) {
                         rel="noopener noreferrer"
                         className="btn_outline btn-2 hover-outline-slide-down rounded-xl"
                     >
-                        <span>{t('Book a Free Consultation')}</span>
+                        <span>{t('Ask via WhatsApp')}</span>
                     </a>
                 </div>
             </div>

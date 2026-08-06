@@ -4,10 +4,12 @@ import BlogCard from '@/components/blogs/BlogCard';
 import { Blog, PaginatedData } from '@/types';
 import { Search } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
-    title: 'Coding Blog: Tips, Guides & Insights | Uma Coding Bali',
+    title: 'Coding Blog: Tips, Guides & Insights',
     description:
-        'Discover coding articles tailored for parents, kids, and teens in Bali — from Scratch and Roblox basics to Python, Data Science, Java, full stack development, and tips for choosing the right coding class.',
+        'Discover coding articles for parents, kids, and teens in Bali. Learn about Scratch, Roblox, Python, Java, and tips for choosing the right class.',
     keywords: [
         'coding blog Bali',
         'programming guide for kids',
@@ -19,9 +21,9 @@ export const metadata: Metadata = {
         canonical: './',
     },
     openGraph: {
-        title: 'Coding Blog: Tips, Guides & Insights | Uma Coding Bali',
+        title: 'Coding Blog: Tips, Guides & Insights',
         description:
-            'Discover coding articles tailored for parents, kids, and teens in Bali.',
+            'Discover coding articles for parents, kids, and teens in Bali. Learn about Scratch, Roblox, Python, Java, and tips for choosing the right class.',
         url: 'https://umacoding.com/blogs',
     },
 };

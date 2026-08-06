@@ -2,13 +2,12 @@ import type { Metadata } from 'next';
 import AboutClient from './AboutClient';
 
 export const metadata: Metadata = {
-    title: 'About Us - Empowering Young Innovators | Uma Coding Bali',
+    title: 'Tentang Uma Coding - Kursus Coding di Bali',
     description:
-        'Learn about Uma Coding, the premier coding school for kids and teens in Bali. Empowering young innovators with logic, programming skills, and career readiness.',
+        'Pelajari tentang Uma Coding, penyedia kursus coding untuk anak, remaja, & dewasa di Bali. Memberdayakan inovator muda dengan pemrograman.',
     keywords: [
-        'about Uma Coding',
-        'coding school Bali',
-        'coding mentor Bali',
+        'kursus coding Bali',
+        'tentang uma coding',
         'private coding class Bali',
         'kids programming school Bali',
     ],
@@ -16,9 +15,9 @@ export const metadata: Metadata = {
         canonical: './',
     },
     openGraph: {
-        title: 'About Us - Empowering Young Innovators | Uma Coding Bali',
+        title: 'Tentang Uma Coding - Kursus Coding di Bali',
         description:
-            'Learn about Uma Coding, the premier coding school for kids and teens in Bali.',
+            'Pelajari tentang Uma Coding, penyedia kursus coding untuk anak, remaja, & dewasa di Bali. Memberdayakan inovator muda dengan pemrograman.',
         url: 'https://umacoding.com/about',
     },
 };

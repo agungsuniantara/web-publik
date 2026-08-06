@@ -17,22 +17,21 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://umacoding.com';
 export const metadata: Metadata = {
     metadataBase: new URL(siteUrl),
     title: {
-        default: 'Coding School Bali | Coding Classes for Kids & Teens - Uma Coding',
-        template: '%s - Uma Coding',
+        default: 'Kursus Coding Private, Offline & Online di Bali | Uma Coding',
+        template: '%s | Uma Coding',
     },
     description:
-        'Uma Coding offers coding classes, game development, and programming bootcamps for kids, teens, and adults in Bali.',
+        'Kursus coding untuk anak, remaja, & dewasa di Bali. Tersedia kelas private, group, offline, & online sesuai usia dan tujuan belajar.',
     keywords: [
-        'coding school Bali',
+        'Kursus coding di Bali',
+        'Private coding class Bali',
+        'Kursus coding untuk anak',
+        'Kelas coding untuk remaja',
+        'Kursus coding untuk dewasa',
+        'Kelas coding online',
+        'Guru coding private ke rumah',
         'coding class Bali',
-        'coding class for kids Bali',
-        'programming bootcamp Bali',
-        'Scratch coding Bali',
-        'Roblox coding class Bali',
-        'Python coding class Bali',
-        'Java course Bali',
-        'full stack developer course Bali',
-        'private coding tutor Bali',
+        'belajar coding Bali',
     ],
     authors: [{ name: 'Uma Coding', url: siteUrl }],
     creator: 'Uma Coding',
@@ -45,12 +44,12 @@ export const metadata: Metadata = {
         canonical: './',
     },
     openGraph: {
-        title: 'Coding School Bali | Coding Classes for Kids & Teens - Uma Coding',
+        title: 'Kursus Coding Private, Offline & Online di Bali | Uma Coding',
         description:
-            'Uma Coding offers coding classes, game development, and programming bootcamps for kids, teens, and adults in Bali.',
+            'Kursus coding untuk anak, remaja, & dewasa di Bali. Tersedia kelas private, group, offline, & online sesuai usia dan tujuan belajar.',
         url: siteUrl,
         siteName: 'Uma Coding',
-        locale: 'en_US',
+        locale: 'id_ID',
         type: 'website',
         images: [
             {
@@ -63,9 +62,9 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Coding School Bali | Coding Classes for Kids & Teens - Uma Coding',
+        title: 'Kursus Coding Private, Offline & Online di Bali | Uma Coding',
         description:
-            'Uma Coding offers coding classes, game development, and programming bootcamps for kids, teens, and adults in Bali.',
+            'Kursus coding untuk anak, remaja, & dewasa di Bali. Tersedia kelas private, group, offline, & online sesuai usia dan tujuan belajar.',
         site: '@umacoding',
         images: [`${siteUrl}/images/og/uma-coding-default-og.jpg`],
     },

@@ -1,10 +1,14 @@
 import Hero from '@/components/home/Hero';
+import TargetAudience from '@/components/home/TargetAudience';
+import LearningMethods from '@/components/home/LearningMethods';
 import Conferences from '@/components/home/Conferences';
 import FeaturedCourses from '@/components/home/FeaturedCourses';
 import WhyChoose from '@/components/home/WhyChoose';
 import FaqSection from '@/components/home/FaqSection';
 import { Course } from '@/types';
 import { createWebSiteSchema, createEducationalOrganizationSchema } from '@/lib/jsonld';
+
+export const dynamic = 'force-dynamic';
 
 async function getFeaturedCourses(): Promise<Course[]> {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1/public';
@@ -36,9 +40,11 @@ export default async function HomePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(eduSchema) }}
             />
             <Hero />
-            <Conferences />
+            <TargetAudience />
+            <LearningMethods />
             <FeaturedCourses courses={courses} />
             <WhyChoose courses={courses} />
+            <Conferences />
             <FaqSection />
         </>
     );

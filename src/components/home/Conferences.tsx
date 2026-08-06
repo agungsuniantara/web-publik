@@ -25,16 +25,16 @@ export default function Conferences() {
                         data-aos-duration="1000"
                     >
                         <h2>
-                            {t('Coding Programs in Bali: From Beginner to Job-Ready')}
+                            {t('Student Projects and Creations')}
                         </h2>
                         <p className="text-SlateBlueText dark:text-opacity-80 max-w-506 pt-5 pb-6 text-lg font-normal md:pt-9 md:pb-14">
-                            {t("Whether you're just starting your coding journey or looking to master advanced concepts, our curriculum is designed to help you succeed. Join us on-campus in Bali, online from anywhere, or book a private coding tutor.")}
+                            {t("Check out the exciting games, websites, and apps created by our students. Learning to code is not just about theory, but about building something real.")}
                         </p>
                         <Link
                             href="/programs"
                             className="btn_outline btn-2 hover-outline-slide-down"
                         >
-                            <span>{t('Explore Programs')}</span>
+                            <span>{t('Start Building Your Project')}</span>
                         </Link>
                     </div>
                 </div>

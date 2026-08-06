@@ -24,9 +24,9 @@ export default function FeaturedCourses({ courses }: Props) {
                     <p className="mb-2 text-lg font-bold text-primary">
                         {t('Top Picked Courses')}
                     </p>
-                    <h2 className="mb-4">{t('Featured Courses')}</h2>
+                    <h2 className="mb-4 text-3xl font-bold text-secondary md:text-4xl lg:text-[40px] dark:text-white" id="programs">{t('Featured Courses')}</h2>
                     <p className="text-SlateBlueText dark:text-opacity-80 mx-auto max-w-2xl text-lg">
-                        {t('Explore our most popular and highly-rated courses selected just for you. Start your learning journey today.')}
+                        {t('Start your coding journey with our best programs tailored for various ages and skill levels.')}
                     </p>
                 </div>
 

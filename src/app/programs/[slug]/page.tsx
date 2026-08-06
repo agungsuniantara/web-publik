@@ -5,6 +5,8 @@ import { Course } from '@/types';
 import { BookOpen, CheckCircle, Clock } from 'lucide-react';
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
     params: Promise<{ slug: string }>;
 }
@@ -28,18 +30,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const data = await getProgramDetails(slug);
     if (!data || !data.course) return { title: 'Program Not Found' };
     const course = data.course;
-    const cleanDesc = course.description?.replace(/<[^>]*>?/gm, '').slice(0, 160) || `Learn ${course.title} at Uma Coding Bali.`;
+    const rawDesc = course.description?.replace(/<[^>]*>?/gm, '') || `Learn ${course.title} at Uma Coding Bali.`;
+    const cleanDesc = rawDesc.slice(0, 145);
     const image = course.image_path || course.image_url;
 
+    const maxTitleLength = 60;
+    const rawTitle = `${course.title} - Coding Course Bali`;
+    const metaTitle = rawTitle.length > maxTitleLength
+        ? `${rawTitle.substring(0, maxTitleLength - 3)}...`
+        : rawTitle;
+
     return {
-        title: `${course.title} - Coding Course Bali | Uma Coding`,
+        title: {
+            absolute: metaTitle,
+        },
         description: cleanDesc,
         keywords: [course.title, 'coding class Bali', course.category?.name || 'programming course Bali'],
         alternates: {
             canonical: `./`,
         },
         openGraph: {
-            title: `${course.title} - Coding Course Bali`,
+            title: metaTitle,
             description: cleanDesc,
             images: image ? [{ url: image }] : [],
         },
@@ -55,7 +66,7 @@ export default async function ProgramDetailPage({ params }: PageProps) {
     }
 
     const { course, relatedCourses } = data;
-    const whatsappUrl = 'https://wa.me/6281234567890';
+    const whatsappUrl = 'https://wa.me/6289602402811';
     const imageUrl = course.image_path || course.image_url;
 
     const breadcrumbs = [
@@ -85,7 +96,18 @@ export default async function ProgramDetailPage({ params }: PageProps) {
             />
             <HeroSub
                 headingType="h1"
-                title={course.title}
+                title={(() => {
+                    let shortTitle = course.title;
+                    if (shortTitle.includes(':')) {
+                        shortTitle = shortTitle.split(':')[0];
+                    } else if (shortTitle.includes('?')) {
+                        shortTitle = shortTitle.split('?')[0] + '?';
+                    }
+                    if (shortTitle.length > 70) {
+                        shortTitle = shortTitle.substring(0, 67) + '...';
+                    }
+                    return shortTitle;
+                })()}
                 description="Take your skills to the next level."
                 breadcrumbLinks={breadcrumbs}
                 className="pb-12 md:pb-20"
@@ -168,6 +190,46 @@ export default async function ProgramDetailPage({ params }: PageProps) {
                                     </div>
                                 </div>
                             </div>
+                            {/* FAQ Section */}
+                            <div data-aos="fade-up">
+                                <h2 className="text-secondary mb-6 text-[1.75rem] font-bold dark:text-white">
+                                    Frequently Asked Questions
+                                </h2>
+                                <div className="space-y-4">
+                                    <div className="dark:bg-darklight rounded-2xl bg-white p-6 shadow-sm">
+                                        <h4 className="text-secondary mb-2 text-lg font-bold dark:text-white">
+                                            Do I need any prior coding experience?
+                                        </h4>
+                                        <p className="text-SlateBlueText text-sm">
+                                            No prior experience is required for most of our beginner programs. Our mentors will guide you step-by-step from the very basics.
+                                        </p>
+                                    </div>
+                                    <div className="dark:bg-darklight rounded-2xl bg-white p-6 shadow-sm">
+                                        <h4 className="text-secondary mb-2 text-lg font-bold dark:text-white">
+                                            What equipment do I need?
+                                        </h4>
+                                        <p className="text-SlateBlueText text-sm">
+                                            You will need a laptop or computer with a stable internet connection. Specific software requirements will be communicated before the class starts.
+                                        </p>
+                                    </div>
+                                    <div className="dark:bg-darklight rounded-2xl bg-white p-6 shadow-sm">
+                                        <h4 className="text-secondary mb-2 text-lg font-bold dark:text-white">
+                                            Are the classes private or in a group?
+                                        </h4>
+                                        <p className="text-SlateBlueText text-sm">
+                                            We offer both options! You can choose 1-on-1 private sessions for personalized learning or join a small group class.
+                                        </p>
+                                    </div>
+                                    <div className="dark:bg-darklight rounded-2xl bg-white p-6 shadow-sm">
+                                        <h4 className="text-secondary mb-2 text-lg font-bold dark:text-white">
+                                            Can the mentor come to my house?
+                                        </h4>
+                                        <p className="text-SlateBlueText text-sm">
+                                            Yes, we provide offline home-visit sessions for students located in the Bali area. Online classes are also available.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
 
                             {/* Related Programs */}
                             {relatedCourses && relatedCourses.length > 0 && (
@@ -217,13 +279,13 @@ export default async function ProgramDetailPage({ params }: PageProps) {
                                                 <Clock className="size-5" /> Duration
                                             </span>
                                             <span className="text-secondary font-bold dark:text-white">
-                                                {course.duration ? `${course.duration} Hours` : 'Self-paced'}
+                                                {course.duration ? `${course.duration} Mins / Meeting` : 'Self-paced'}
                                             </span>
                                         </div>
                                     </div>
 
                                     <a
-                                        href={`${whatsappUrl}?text=${encodeURIComponent(`I want to know more about this: ${course.title}`)}`}
+                                        href={`${whatsappUrl}?text=${encodeURIComponent(`Halo Uma Coding, saya ingin bertanya tentang program coding untuk ${course.title}.`)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="btn_primary flex h-12 w-full items-center justify-center rounded-xl text-center text-lg font-bold shadow-lg shadow-primary/20"

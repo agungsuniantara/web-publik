@@ -2,22 +2,22 @@ import type { Metadata } from 'next';
 import ContactClient from './ContactClient';
 
 export const metadata: Metadata = {
-    title: 'Contact Us - Get in Touch | Uma Coding Bali',
+    title: 'Contact Us - Get in Touch',
     description:
-        'Contact Uma Coding in Bali for coding class inquiries, career opportunities, or mentorship. Visit our head office in Canggu / Kerobokan.',
+        'Hubungi Uma Coding di Bali untuk informasi kursus coding, pendaftaran, atau konsultasi private coding class ke rumah.',
     keywords: [
         'contact Uma Coding',
-        'coding school address Bali',
-        'coding class inquiry Bali',
+        'kursus coding Bali',
+        'konsultasi coding class',
         'private coding tutor Bali contact',
     ],
     alternates: {
         canonical: './',
     },
     openGraph: {
-        title: 'Contact Us - Get in Touch | Uma Coding Bali',
+        title: 'Contact Us - Get in Touch',
         description:
-            'Contact Uma Coding in Bali for coding class inquiries, career opportunities, or mentorship.',
+            'Hubungi Uma Coding di Bali untuk informasi kursus coding, pendaftaran, atau konsultasi private coding class ke rumah.',
         url: 'https://umacoding.com/contact',
     },
 };
@@ -31,14 +31,13 @@ export default function ContactPage() {
         mainEntity: {
             '@type': 'EducationalOrganization',
             name: 'Uma Coding',
-            telephone: '+62 812-3456-7890',
-            email: 'info@umacoding.com',
+            telephone: '+62 896-0240-2811',
+            email: 'umacoding.bali@gmail.com',
             address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Jl. Uma Coding No. 88',
-                addressLocality: 'Canggu, Kuta Utara',
+                streetAddress: 'Melayani private coding class ke rumah, kelas offline, dan kelas online di Bali',
+                addressLocality: 'Denpasar',
                 addressRegion: 'Bali',
-                postalCode: '80361',
                 addressCountry: 'ID',
             },
         },
