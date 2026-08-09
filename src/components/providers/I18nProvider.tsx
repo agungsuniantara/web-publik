@@ -49,6 +49,18 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
         const saved = localStorage.getItem('app-locale');
         if (saved === 'en' || saved === 'id') {
             setLocaleState(saved as Locale);
+        } else {
+            const cookies = document.cookie.split('; ');
+            const googtrans = cookies.find((row) => row.startsWith('googtrans='));
+            if (googtrans) {
+                const parts = googtrans.split('=')[1]?.split('/');
+                if (parts && parts.length >= 3 && parts[2]) {
+                    const target = parts[2].toLowerCase();
+                    if (target === 'en' || target === 'id') {
+                        setLocaleState(target as Locale);
+                    }
+                }
+            }
         }
     }, []);
 

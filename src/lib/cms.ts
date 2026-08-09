@@ -60,9 +60,10 @@ export function getCmsMediaUrl(path?: string | null): string | null {
 /**
  * Fetch paginated blog posts from Custom CMS
  */
-export async function getCmsBlogs(search?: string, page?: string, perPage: number | string = 12): Promise<PaginatedData<Blog>> {
+export async function getCmsBlogs(category?: string, search?: string, page?: string, perPage: number | string = 12): Promise<PaginatedData<Blog>> {
     const baseUrl = getCmsApiUrl();
     const params = new URLSearchParams();
+    if (category && category !== 'all') params.append('category', category);
     if (search) params.append('search', search);
     if (page) params.append('page', page);
     params.append('per_page', perPage.toString());
@@ -175,7 +176,7 @@ export async function getCmsPrograms(
 ): Promise<PaginatedData<CmsProgram>> {
     const baseUrl = getCmsApiUrl();
     const params = new URLSearchParams();
-    if (ageGroup) params.append('age_group', ageGroup);
+    if (ageGroup && ageGroup !== 'all') params.append('age_group', ageGroup);
     if (search) params.append('search', search);
     if (page) params.append('page', page);
     params.append('per_page', perPage.toString());

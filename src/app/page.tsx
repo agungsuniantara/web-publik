@@ -6,7 +6,7 @@ import WhyChoose from '@/components/home/WhyChoose';
 import FaqSection from '@/components/home/FaqSection';
 import { Course } from '@/types';
 import { createWebSiteSchema, createEducationalOrganizationSchema } from '@/lib/jsonld';
-import { getCmsPrograms } from '@/lib/cms';
+import { getCmsPrograms, getCmsSettings } from '@/lib/cms';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,7 +30,11 @@ async function getFeaturedCourses(): Promise<Course[]> {
 }
 
 export default async function HomePage() {
-    const courses = await getFeaturedCourses();
+    const [courses, settings] = await Promise.all([
+        getFeaturedCourses(),
+        getCmsSettings(),
+    ]);
+
     const siteSchema = createWebSiteSchema();
     const eduSchema = createEducationalOrganizationSchema();
 
@@ -45,8 +49,8 @@ export default async function HomePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(eduSchema) }}
             />
             <Hero />
-            <TargetAudience />
-            <LearningMethods />
+            <TargetAudience settings={settings} />
+            <LearningMethods settings={settings} />
             <FeaturedCourses courses={courses} />
             <WhyChoose courses={courses} />
             <FaqSection />

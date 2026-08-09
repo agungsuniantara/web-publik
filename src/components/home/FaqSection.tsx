@@ -115,9 +115,9 @@ export default function FaqSection() {
                                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                                     <MessageCircle className="h-5 w-5" />
                                 </div>
-                                <h4 className="text-base font-bold text-secondary dark:text-white">
+                                <h3 className="text-base font-bold text-secondary dark:text-white">
                                     {t('Still Have Questions?')}
-                                </h4>
+                                </h3>
                             </div>
                             <p className="text-SlateBlueText mb-5 text-sm dark:text-opacity-70">
                                 {t('Contact us via WhatsApp for consultation regarding the most suitable program for you or your child.')}

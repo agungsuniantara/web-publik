@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState, useEffect, useRef } from 'react';
 import { useI18n } from '@/components/providers/I18nProvider';
+import GoogleTranslate, { setGoogleTranslateLanguage } from '@/components/ui/GoogleTranslate';
 
 const navItems = [
     { label: 'Home', href: '/' },
@@ -68,6 +69,9 @@ export default function Header() {
                             <img
                                 src="/images/logo/logo-color-landscape.webp"
                                 alt="Uma Coding logo"
+                                width={176}
+                                height={53}
+                                fetchPriority="high"
                                 className="h-auto w-44 dark:brightness-0 dark:invert"
                             />
                         </Link>
@@ -134,6 +138,7 @@ export default function Header() {
                                     <button
                                         onClick={() => {
                                             setLocale('en');
+                                            setGoogleTranslateLanguage('en');
                                             setIsLangOpen(false);
                                         }}
                                         className={`flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 ${
@@ -148,6 +153,7 @@ export default function Header() {
                                     <button
                                         onClick={() => {
                                             setLocale('id');
+                                            setGoogleTranslateLanguage('id');
                                             setIsLangOpen(false);
                                         }}
                                         className={`flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 ${
@@ -162,6 +168,7 @@ export default function Header() {
                                 </div>
                             )}
                         </div>
+                        <GoogleTranslate />
 
                         {/* Theme Toggle Button */}
                         <button

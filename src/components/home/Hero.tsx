@@ -17,7 +17,7 @@ export default function Hero() {
                         <div
                             data-aos="fade-up"
                             data-aos-delay="200"
-                            className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary"
+                            className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-blue-700 dark:bg-primary/20 dark:text-sky-300"
                         >
                             <span className="relative flex h-2 w-2">
                                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>

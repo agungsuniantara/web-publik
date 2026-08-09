@@ -24,7 +24,7 @@ export default function BlogList({ initialData, search, perPage }: BlogListProps
 
         try {
             const nextPage = currentPage + 1;
-            const res = await getCmsBlogs(search, nextPage.toString(), perPage);
+            const res = await getCmsBlogs(undefined, search, nextPage.toString(), perPage);
             
             if (res && res.data) {
                 setBlogs((prev) => [...prev, ...res.data]);

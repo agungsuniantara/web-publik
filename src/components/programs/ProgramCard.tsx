@@ -83,6 +83,7 @@ export default function ProgramCard({ course }: { course: Course }) {
                     </div>
                     <Link
                         href={`/programs/${course.slug}`}
+                        aria-label={`${t('Read More')} - ${course.title}`}
                         className="flex items-center gap-2 font-bold text-primary transition-all hover:gap-3"
                     >
                         {t('Read More')}

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import HeroSub from '@/components/layout/HeroSub';
 import ProgramCard from '@/components/programs/ProgramCard';
+import ProgramCategoryFilter from '@/components/programs/ProgramCategoryFilter';
 import { Course, PaginatedData } from '@/types';
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getCmsPrograms } from '@/lib/cms';
@@ -32,13 +33,12 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-    searchParams: Promise<{ search?: string; page?: string; per_page?: string }>;
+    searchParams: Promise<{ search?: string; category?: string; age_group?: string; page?: string; per_page?: string }>;
 }
 
-async function getPrograms(search?: string, page?: string, perPage?: string): Promise<PaginatedData<Course>> {
-    // Default to 100 per page so all 12 programs show up completely on 1 page without being hidden
+async function getPrograms(ageGroup?: string, search?: string, page?: string, perPage?: string): Promise<PaginatedData<Course>> {
     const effectivePerPage = perPage || '12';
-    const cmsPaginated = await getCmsPrograms(undefined, search, page, effectivePerPage);
+    const cmsPaginated = await getCmsPrograms(ageGroup, search, page, effectivePerPage);
     const mappedCourses: Course[] = (cmsPaginated.data || []).map((p) => ({
         id: p.id,
         title: p.title,
@@ -63,10 +63,11 @@ async function getPrograms(search?: string, page?: string, perPage?: string): Pr
 export default async function ProgramsPage({ searchParams }: PageProps) {
     const resolvedSearchParams = await searchParams;
     const search = resolvedSearchParams?.search || '';
+    const category = resolvedSearchParams?.category || resolvedSearchParams?.age_group || 'kids';
     const page = resolvedSearchParams?.page || '1';
     const perPage = resolvedSearchParams?.per_page || '12';
 
-    const paginatedPrograms = await getPrograms(search, page, perPage);
+    const paginatedPrograms = await getPrograms(category, search, page, perPage);
     const courses = paginatedPrograms.data || [];
 
     const breadcrumbs = [
@@ -102,10 +103,10 @@ export default async function ProgramsPage({ searchParams }: PageProps) {
                 title="Program Kami"
                 description="Jelajahi berbagai pilihan program kursus coding interaktif yang dirancang khusus untuk anak-anak, remaja, dan dewasa."
                 breadcrumbLinks={breadcrumbs}
-                className="pb-24 md:pb-32"
+                className="pb-28 md:pb-32"
             />
 
-            <section className="bg-IcyBreeze dark:bg-darkmode relative z-10 -mt-12 pt-24 pb-20">
+            <section className="bg-IcyBreeze dark:bg-darkmode relative z-10 -mt-12 pt-20 pb-20">
                 {/* Floating Search Bar */}
                 <div
                     className="absolute top-0 right-0 left-0 z-20 flex -translate-y-1/2 justify-center px-4"
@@ -122,16 +123,21 @@ export default async function ProgramsPage({ searchParams }: PageProps) {
                             placeholder="Cari program kursus..."
                             className="text-secondary placeholder:text-SlateBlueText dark:bg-darklight dark:border-gray-800 w-full rounded-full border border-gray-200 bg-white py-5 pr-6 pl-16 text-lg shadow-[0px_6px_10px_0px_#00000026] transition-all focus:ring-2 focus:ring-primary/20 focus:outline-none dark:text-white"
                         />
+                        <input type="hidden" name="category" value={category} />
                     </form>
                 </div>
 
-                <div className="container relative" id="programs">
+                <div className="container relative pt-12 md:pt-14" id="programs">
+                    {/* Category Filter Tabs */}
+                    <div className="mb-12" data-aos="fade-up">
+                        <ProgramCategoryFilter activeCategory={category} searchQuery={search} />
+                    </div>
                     <div className="mb-16">
                         {courses.length > 0 ? (
                             <>
                                 <div className="grid grid-cols-1 gap-8 px-4 md:grid-cols-2 lg:grid-cols-3">
                                     {courses.map((course) => (
-                                        <div key={course.id} data-aos="fade-up" data-aos-delay="100">
+                                        <div key={course.id}>
                                             <ProgramCard course={course} />
                                         </div>
                                     ))}
@@ -141,7 +147,7 @@ export default async function ProgramsPage({ searchParams }: PageProps) {
                                     <div className="mt-14 flex items-center justify-center gap-2">
                                         {paginatedPrograms.current_page > 1 && (
                                             <Link
-                                                href={`/programs?page=${paginatedPrograms.current_page - 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                href={`/programs?category=${category}&page=${paginatedPrograms.current_page - 1}${search ? `&search=${encodeURIComponent(search)}` : ''}#programs`}
                                                 className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:bg-primary hover:text-white dark:border-gray-800 dark:bg-darklight dark:text-gray-300"
                                                 aria-label="Previous Page"
                                             >
@@ -152,7 +158,7 @@ export default async function ProgramsPage({ searchParams }: PageProps) {
                                         {Array.from({ length: paginatedPrograms.last_page }, (_, i) => i + 1).map((pageNum) => (
                                             <Link
                                                 key={pageNum}
-                                                href={`/programs?page=${pageNum}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                href={`/programs?category=${category}&page=${pageNum}${search ? `&search=${encodeURIComponent(search)}` : ''}#programs`}
                                                 className={`flex h-11 min-w-[44px] items-center justify-center rounded-xl px-4 text-base font-semibold shadow-sm transition ${
                                                     pageNum === paginatedPrograms.current_page
                                                         ? 'bg-primary text-white'
@@ -165,7 +171,7 @@ export default async function ProgramsPage({ searchParams }: PageProps) {
 
                                         {paginatedPrograms.current_page < paginatedPrograms.last_page && (
                                             <Link
-                                                href={`/programs?page=${paginatedPrograms.current_page + 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                href={`/programs?category=${category}&page=${paginatedPrograms.current_page + 1}${search ? `&search=${encodeURIComponent(search)}` : ''}#programs`}
                                                 className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:bg-primary hover:text-white dark:border-gray-800 dark:bg-darklight dark:text-gray-300"
                                                 aria-label="Next Page"
                                             >

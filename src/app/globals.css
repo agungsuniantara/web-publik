@@ -284,10 +284,15 @@
         }
 
         .btn-2 span {
-            @apply rounded-lg border border-solid transition-all;
+            @apply rounded-lg border border-solid transition-all font-semibold;
             transition-duration: 0.4s;
             border-color: var(--color-primary);
-            color: var(--color-primary);
+            color: #1d4ed8;
+        }
+
+        :is(.dark) .btn-2 span {
+            color: #38bdf8;
+            border-color: #38bdf8;
         }
 
         .btn-2 span:hover {
@@ -310,4 +315,35 @@
     font-size: 1rem;
     line-height: 1.7;
     margin: 0.8em 0 1em;
+}
+
+/* Hide Google Translate top iframe banner and reset body top offset (Matching LMS) */
+.goog-te-banner-frame,
+.skiptranslate.goog-te-gadget-simple,
+iframe.skiptranslate,
+iframe.goog-te-banner-frame,
+iframe[src*="translate.google"],
+iframe[id*="goog"],
+.VIpgJd-ZJuEfc-aL92e,
+.VIpgJd-ZJuEfc-h42sbf,
+.VIpgJd-ZJuEfc-LgbsSe,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+body {
+    top: 0 !important;
+    position: static !important;
+}
+
+.goog-text-highlight {
+    background-color: transparent !important;
+    box-shadow: none !important;
 }

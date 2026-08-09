@@ -16,6 +16,8 @@ export default function Footer() {
                             <img
                                 src="/images/logo/logo-white-landscape.webp"
                                 alt="Uma Coding logo"
+                                width={192}
+                                height={58}
                                 className="h-auto w-48"
                             />
                         </Link>

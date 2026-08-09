@@ -77,6 +77,15 @@ export default function RootLayout({
 }) {
     return (
         <html lang="id" className={`${instrumentSans.variable} h-full antialiased dark`}>
+            <head>
+                <link
+                    rel="preload"
+                    href="/images/logo/logo-color-landscape.webp"
+                    as="image"
+                    type="image/webp"
+                    fetchPriority="high"
+                />
+            </head>
             <body className="home-layout flex min-h-full flex-col bg-background text-foreground">
                 <I18nProvider>
                     <AosProvider>
