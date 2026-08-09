@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { execSync } from 'child_process';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     try {
         const output = execSync('bash /home/bali-vibes-tech/umacoding/deploy.sh 2>&1', {
