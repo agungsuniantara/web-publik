@@ -33,7 +33,15 @@ export default function ProgramCard({ course }: { course: Course }) {
                 {course.category && (
                     <div className="absolute top-4 right-4">
                         <span className="rounded-full bg-white/90 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm backdrop-blur-sm">
-                            {course.category.name}
+                            {typeof course.category === 'string'
+                                ? (course.category === 'kids'
+                                    ? 'Anak-anak'
+                                    : course.category === 'teens'
+                                        ? 'Remaja'
+                                        : course.category === 'adults'
+                                            ? 'Dewasa'
+                                            : course.category)
+                                : course.category.name}
                         </span>
                     </div>
                 )}
@@ -70,7 +78,7 @@ export default function ProgramCard({ course }: { course: Course }) {
                             <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
                         </svg>
                         <span>
-                            {course.duration ? t(':count Days', { count: course.duration }) : t('Self-paced')}
+                            {course.duration ? course.duration : t('Self-paced')}
                         </span>
                     </div>
                     <Link

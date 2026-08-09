@@ -20,13 +20,15 @@ export interface Course {
     image_url?: string | null;
     image_path?: string | null;
     description?: string | null;
-    duration: number;
+    duration?: number | string | null;
+    price_text?: string | null;
+    level?: string | null;
     is_active: boolean;
-    is_locked: boolean;
-    is_featured: boolean;
+    is_locked?: boolean;
+    is_featured?: boolean;
     created_at: string;
     updated_at: string;
-    category?: Category | null;
+    category?: Category | string | null;
     instructors?: User[];
     modules?: any[];
 }

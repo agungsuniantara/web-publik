@@ -4,6 +4,7 @@ import ProgramCard from '@/components/programs/ProgramCard';
 import { Course } from '@/types';
 import { BookOpen, CheckCircle, Clock } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { getCmsProgramBySlug, getCmsPrograms } from '@/lib/cms';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,17 +13,49 @@ interface PageProps {
 }
 
 async function getProgramDetails(slug: string): Promise<{ course: Course; relatedCourses: Course[] } | null> {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1/public';
-    try {
-        const res = await fetch(`${apiUrl}/programs/${slug}`, {
-            cache: 'no-store',
-        });
-        if (!res.ok) return null;
-        return await res.json();
-    } catch (error) {
-        console.error('Failed to fetch program details:', error);
-        return null;
-    }
+    const cmsProgram = await getCmsProgramBySlug(slug);
+    if (!cmsProgram) return null;
+
+    const paginatedCms = await getCmsPrograms();
+    const related = (paginatedCms.data || [])
+        .filter((p) => p.slug !== slug)
+        .map((p) => ({
+            id: p.id,
+            title: p.title,
+            slug: p.slug,
+            category: p.age_group,
+            description: p.description || p.excerpt || '',
+            price_text: p.price_text,
+            image_path: p.cover_image_path,
+            duration: p.duration,
+            level: p.level,
+            is_active: p.is_active,
+            created_at: p.created_at || new Date().toISOString(),
+            updated_at: p.updated_at || new Date().toISOString(),
+        }));
+
+    const course: Course = {
+        id: cmsProgram.id,
+        title: cmsProgram.title,
+        slug: cmsProgram.slug,
+        category: cmsProgram.age_group,
+        description: cmsProgram.description || cmsProgram.excerpt || '',
+        price_text: cmsProgram.price_text,
+        image_path: cmsProgram.cover_image_path,
+        duration: cmsProgram.duration,
+        level: cmsProgram.level,
+        is_active: cmsProgram.is_active,
+        created_at: cmsProgram.created_at || new Date().toISOString(),
+        updated_at: cmsProgram.updated_at || new Date().toISOString(),
+        modules: cmsProgram.syllabus_highlights?.map((highlight, index) => ({
+            id: `highlight-${index}`,
+            title: highlight,
+            order: index + 1,
+            units: [],
+        })),
+    };
+
+    return { course, relatedCourses: related };
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -45,7 +78,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             absolute: metaTitle,
         },
         description: cleanDesc,
-        keywords: [course.title, 'coding class Bali', course.category?.name || 'programming course Bali'],
+        keywords: [course.title, 'coding class Bali', typeof course.category === 'string' ? course.category : course.category?.name || 'programming course Bali'],
         alternates: {
             canonical: `./`,
         },
@@ -266,7 +299,7 @@ export default async function ProgramDetailPage({ params }: PageProps) {
                                     {course.category && (
                                         <div className="absolute top-4 right-4">
                                             <span className="rounded-full bg-white/90 px-4 py-1.5 text-sm font-semibold text-primary shadow-sm backdrop-blur-sm">
-                                                {course.category.name}
+                                                {typeof course.category === 'string' ? course.category : course.category.name}
                                             </span>
                                         </div>
                                     )}

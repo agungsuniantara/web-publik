@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://umacoding.com';
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1/public';
+    const cmsApiUrl = process.env.NEXT_PUBLIC_CMS_API_URL || 'http://localhost:8000/api';
 
     const staticRoutes: MetadataRoute.Sitemap = [
         {
@@ -44,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     try {
         const [programsRes, blogsRes] = await Promise.all([
             fetch(`${apiUrl}/programs`, { cache: 'no-store' }),
-            fetch(`${apiUrl}/blogs`, { cache: 'no-store' }),
+            fetch(`${cmsApiUrl}/blogs`, { cache: 'no-store' }),
         ]);
 
         if (programsRes.ok) {

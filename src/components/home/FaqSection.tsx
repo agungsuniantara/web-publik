@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown, MessageCircle, HelpCircle } from 'lucide-react';
 import { useI18n } from '@/components/providers/I18nProvider';
+import { getCmsFaqs, getCmsSettings } from '@/lib/cms';
 
 interface FaqItem {
     question: string;
@@ -13,7 +14,7 @@ export default function FaqSection() {
     const { t } = useI18n();
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-    const faqs: FaqItem[] = [
+    const defaultFaqs: FaqItem[] = [
         {
             question: t('Can the mentor come directly to my house?'),
             answer: t('Yes, we provide private classes where the mentor comes directly to the student\'s house in our service areas.'),
@@ -56,7 +57,40 @@ export default function FaqSection() {
         },
     ];
 
-    const whatsappUrl = 'https://wa.me/6289602402811?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding';
+    const [faqs, setFaqs] = useState<FaqItem[]>(defaultFaqs);
+    const [whatsappUrl, setWhatsappUrl] = useState<string>(
+        'https://wa.me/6289602402811?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding'
+    );
+
+    useEffect(() => {
+        let isMounted = true;
+        async function loadCmsContent() {
+            const [fetchedFaqs, settings] = await Promise.all([
+                getCmsFaqs(),
+                getCmsSettings(),
+            ]);
+
+            if (!isMounted) return;
+
+            if (fetchedFaqs && fetchedFaqs.length > 0) {
+                setFaqs(
+                    fetchedFaqs.map((f) => ({
+                        question: f.question,
+                        answer: f.answer,
+                    }))
+                );
+            }
+
+            if (settings && settings['contact_whatsapp']) {
+                setWhatsappUrl(settings['contact_whatsapp']);
+            }
+        }
+
+        loadCmsContent();
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     return (
         <section className="dark:bg-darklight bg-IcyBreeze py-24">

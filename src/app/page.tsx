@@ -1,27 +1,32 @@
 import Hero from '@/components/home/Hero';
 import TargetAudience from '@/components/home/TargetAudience';
 import LearningMethods from '@/components/home/LearningMethods';
-import Conferences from '@/components/home/Conferences';
 import FeaturedCourses from '@/components/home/FeaturedCourses';
 import WhyChoose from '@/components/home/WhyChoose';
 import FaqSection from '@/components/home/FaqSection';
 import { Course } from '@/types';
 import { createWebSiteSchema, createEducationalOrganizationSchema } from '@/lib/jsonld';
+import { getCmsPrograms } from '@/lib/cms';
 
 export const dynamic = 'force-dynamic';
 
 async function getFeaturedCourses(): Promise<Course[]> {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1/public';
-    try {
-        const res = await fetch(`${apiUrl}/featured-courses`, {
-            cache: 'no-store',
-        });
-        if (!res.ok) return [];
-        return await res.json();
-    } catch (error) {
-        console.error('Failed to fetch featured courses:', error);
-        return [];
-    }
+    const paginatedCms = await getCmsPrograms();
+    const cmsPrograms = paginatedCms.data || [];
+    return cmsPrograms.map((p) => ({
+        id: p.id,
+        title: p.title,
+        slug: p.slug,
+        category: p.age_group,
+        description: p.description || p.excerpt || '',
+        price_text: p.price_text,
+        image_path: p.cover_image_path,
+        duration: p.duration,
+        level: p.level,
+        is_active: p.is_active,
+        created_at: p.created_at || new Date().toISOString(),
+        updated_at: p.updated_at || new Date().toISOString(),
+    }));
 }
 
 export default async function HomePage() {
@@ -44,7 +49,6 @@ export default async function HomePage() {
             <LearningMethods />
             <FeaturedCourses courses={courses} />
             <WhyChoose courses={courses} />
-            <Conferences />
             <FaqSection />
         </>
     );

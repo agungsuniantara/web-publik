@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import HeroSub from '@/components/layout/HeroSub';
 import BlogCard from '@/components/blogs/BlogCard';
 import { Blog, PaginatedData } from '@/types';
-import { Search } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { getCmsBlogs } from '@/lib/cms';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata: Metadata = {
     title: 'Coding Blog: Tips, Guides & Insights',
@@ -29,37 +32,24 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-    searchParams: Promise<{ search?: string; page?: string }>;
+    searchParams: Promise<{ search?: string; page?: string; per_page?: string }>;
 }
 
-async function getBlogs(search?: string, page?: string): Promise<PaginatedData<Blog>> {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1/public';
-    const params = new URLSearchParams();
-    if (search) params.append('search', search);
-    if (page) params.append('page', page);
-
-    try {
-        const res = await fetch(`${apiUrl}/blogs?${params.toString()}`, {
-            cache: 'no-store',
-        });
-        if (!res.ok) return { data: [], current_page: 1, last_page: 1, per_page: 9, total: 0 };
-        return await res.json();
-    } catch (error) {
-        console.error('Failed to fetch blogs:', error);
-        return { data: [], current_page: 1, last_page: 1, per_page: 9, total: 0 };
-    }
+async function getBlogs(search?: string, page?: string, perPage?: string): Promise<PaginatedData<Blog>> {
+    return getCmsBlogs(search, page, perPage);
 }
 
 export default async function BlogsPage({ searchParams }: PageProps) {
     const resolvedSearchParams = await searchParams;
     const search = resolvedSearchParams?.search || '';
     const page = resolvedSearchParams?.page || '1';
+    const perPage = resolvedSearchParams?.per_page || '12';
 
-    const paginatedBlogs = await getBlogs(search, page);
+    const paginatedBlogs = await getBlogs(search, page, perPage);
     const posts = paginatedBlogs.data || [];
 
     const breadcrumbs = [
-        { href: '/', text: 'Home' },
+        { href: '/', text: 'Beranda' },
         { href: '/blogs', text: 'Blog' },
     ];
 
@@ -88,8 +78,8 @@ export default async function BlogsPage({ searchParams }: PageProps) {
             />
             <HeroSub
                 headingType="h1"
-                title="Coding Blog: Tips, Guides & Insights for Parents and Students"
-                description="Discover coding articles tailored for parents, kids, and teens in Bali — from Scratch and Roblox basics to Python, Data Science, Java, full stack development, and tips for choosing the right coding class."
+                title="Artikel & Blog Coding"
+                description="Temukan panduan, tips, dan wawasan seputar dunia pemrograman untuk anak-anak, remaja, dan orang tua."
                 breadcrumbLinks={breadcrumbs}
                 className="pb-24 md:pb-32"
                 titleClassName="max-w-3xl"
@@ -109,7 +99,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
                             type="text"
                             name="search"
                             defaultValue={search}
-                            placeholder="Search articles..."
+                            placeholder="Cari artikel blog..."
                             className="text-secondary placeholder:text-SlateBlueText dark:bg-darklight dark:border-gray-800 w-full rounded-full border border-gray-200 bg-white py-5 pr-6 pl-16 text-lg shadow-[0px_6px_10px_0px_#00000026] transition-all focus:ring-2 focus:ring-primary/20 focus:outline-none dark:text-white"
                         />
                     </form>
@@ -118,21 +108,62 @@ export default async function BlogsPage({ searchParams }: PageProps) {
                 <div className="container relative" id="blog">
                     <div className="mb-16">
                         {posts.length > 0 ? (
-                            <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
-                                {posts.map((post) => (
-                                    <div
-                                        key={post.id}
-                                        data-aos="fade-up"
-                                        data-aos-delay="200"
-                                        data-aos-duration="1000"
-                                    >
-                                        <BlogCard blog={post} />
+                            <>
+                                <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
+                                    {posts.map((post) => (
+                                        <div
+                                            key={post.id}
+                                            data-aos="fade-up"
+                                            data-aos-delay="100"
+                                        >
+                                            <BlogCard blog={post} />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {paginatedBlogs.last_page > 1 && (
+                                    <div className="mt-14 flex flex-wrap items-center justify-center gap-2">
+                                        {paginatedBlogs.current_page > 1 && (
+                                            <Link
+                                                href={`/blogs?page=${paginatedBlogs.current_page - 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:bg-primary hover:text-white dark:border-gray-800 dark:bg-darklight dark:text-gray-300"
+                                                aria-label="Previous Page"
+                                            >
+                                                <ChevronLeft className="h-5 w-5" />
+                                            </Link>
+                                        )}
+
+                                        {Array.from({ length: paginatedBlogs.last_page }, (_, i) => i + 1).map((pageNum) => (
+                                            <Link
+                                                key={pageNum}
+                                                href={`/blogs?page=${pageNum}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                className={`flex h-11 min-w-[44px] items-center justify-center rounded-xl px-4 text-base font-semibold shadow-sm transition ${
+                                                    pageNum === paginatedBlogs.current_page
+                                                        ? 'bg-primary text-white'
+                                                        : 'border border-gray-200 bg-white text-gray-700 hover:bg-gray-100 dark:border-gray-800 dark:bg-darklight dark:text-gray-300 dark:hover:bg-gray-800'
+                                                }`}
+                                            >
+                                                {pageNum}
+                                            </Link>
+                                        ))}
+
+                                        {paginatedBlogs.current_page < paginatedBlogs.last_page && (
+                                            <Link
+                                                href={`/blogs?page=${paginatedBlogs.current_page + 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:bg-primary hover:text-white dark:border-gray-800 dark:bg-darklight dark:text-gray-300"
+                                                aria-label="Next Page"
+                                            >
+                                                <ChevronRight className="h-5 w-5" />
+                                            </Link>
+                                        )}
                                     </div>
-                                ))}
-                            </div>
+                                )}
+                            </>
                         ) : (
-                            <div className="py-12 text-center text-gray-500">
-                                <p>No articles found matching your criteria.</p>
+                            <div className="py-16 text-center">
+                                <p className="text-SlateBlueText dark:text-gray-400 text-lg">
+                                    Tidak ada artikel yang ditemukan sesuai pencarian Anda.
+                                </p>
                             </div>
                         )}
                     </div>

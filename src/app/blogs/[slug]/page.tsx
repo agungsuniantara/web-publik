@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Blog } from '@/types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { getCmsBlogBySlug } from '@/lib/cms';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,17 +11,7 @@ interface PageProps {
 }
 
 async function getBlogDetails(slug: string): Promise<Blog | null> {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1/public';
-    try {
-        const res = await fetch(`${apiUrl}/blogs/${slug}`, {
-            cache: 'no-store',
-        });
-        if (!res.ok) return null;
-        return await res.json();
-    } catch (error) {
-        console.error('Failed to fetch blog details:', error);
-        return null;
-    }
+    return getCmsBlogBySlug(slug);
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
