@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+cd "$(dirname "$0")"
+
 echo "🚀 Pulling latest web-publik from GitHub..."
 git pull origin main
 
