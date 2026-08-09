@@ -3,6 +3,8 @@ set -e
 
 cd "$(dirname "$0")"
 
+git config --global --add safe.directory '*' || true
+
 echo "🚀 Pulling latest web-publik from GitHub..."
 git fetch https://github.com/agungsuniantara/web-publik.git main
 git reset --hard FETCH_HEAD
