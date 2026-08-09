@@ -4,7 +4,8 @@ set -e
 cd "$(dirname "$0")"
 
 echo "🚀 Pulling latest web-publik from GitHub..."
-git pull origin main
+git fetch https://github.com/agungsuniantara/web-publik.git main
+git reset --hard FETCH_HEAD
 
 echo "📦 Installing dependencies..."
 npm install
