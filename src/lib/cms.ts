@@ -24,7 +24,7 @@ export interface CmsProgram {
     price_text?: string;
     cover_image?: string;
     cover_image_path?: string;
-    syllabus_highlights?: string[];
+    syllabus_highlights?: string[] | string;
     is_featured: boolean;
     is_active: boolean;
     order: number;

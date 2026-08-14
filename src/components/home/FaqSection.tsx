@@ -10,7 +10,11 @@ interface FaqItem {
     answer: string;
 }
 
-export default function FaqSection() {
+interface Props {
+    settings?: Record<string, string>;
+}
+
+export default function FaqSection({ settings }: Props) {
     const { t } = useI18n();
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -58,17 +62,22 @@ export default function FaqSection() {
     ];
 
     const [faqs, setFaqs] = useState<FaqItem[]>(defaultFaqs);
+    const waNumber = settings?.hero_whatsapp_number || settings?.contact_whatsapp || '6289602402811';
     const [whatsappUrl, setWhatsappUrl] = useState<string>(
-        'https://wa.me/6289602402811?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding'
+        `https://wa.me/${waNumber}?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding`
     );
+
+    const faqLabel = settings?.faq_label || t('FAQ');
+    const faqTitle = settings?.faq_title || t('Frequently Asked Questions');
+    const faqSubtitle = settings?.faq_subtitle || t('Answers to common questions about our coding classes, schedules, and programs offered.');
+    const faqCtaTitle = settings?.faq_cta_title || t('Still Have Questions?');
+    const faqCtaSubtitle = settings?.faq_cta_subtitle || t('Contact us via WhatsApp for consultation regarding the most suitable program for you or your child.');
+    const faqCtaButton = settings?.faq_cta_button || t('Chat on WhatsApp');
 
     useEffect(() => {
         let isMounted = true;
         async function loadCmsContent() {
-            const [fetchedFaqs, settings] = await Promise.all([
-                getCmsFaqs(),
-                getCmsSettings(),
-            ]);
+            const fetchedFaqs = await getCmsFaqs();
 
             if (!isMounted) return;
 
@@ -79,10 +88,6 @@ export default function FaqSection() {
                         answer: f.answer,
                     }))
                 );
-            }
-
-            if (settings && settings['contact_whatsapp']) {
-                setWhatsappUrl(settings['contact_whatsapp']);
             }
         }
 
@@ -100,13 +105,13 @@ export default function FaqSection() {
                     <div className="lg:col-span-5" data-aos="fade-up">
                         <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3.5 py-1 text-sm font-semibold tracking-wider text-primary uppercase dark:bg-primary/20">
                             <HelpCircle className="h-4 w-4" />
-                            {t('FAQ')}
+                            {faqLabel}
                         </span>
                         <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-secondary md:text-4xl dark:text-white">
-                            {t('Frequently Asked Questions')}
+                            {faqTitle}
                         </h2>
                         <p className="text-SlateBlueText mb-8 text-lg dark:text-opacity-80">
-                            {t('Answers to common questions about our coding classes, schedules, and programs offered.')}
+                            {faqSubtitle}
                         </p>
 
                         {/* WhatsApp / Contact CTA box */}
@@ -116,11 +121,11 @@ export default function FaqSection() {
                                     <MessageCircle className="h-5 w-5" />
                                 </div>
                                 <h3 className="text-base font-bold text-secondary dark:text-white">
-                                    {t('Still Have Questions?')}
+                                    {faqCtaTitle}
                                 </h3>
                             </div>
                             <p className="text-SlateBlueText mb-5 text-sm dark:text-opacity-70">
-                                {t('Contact us via WhatsApp for consultation regarding the most suitable program for you or your child.')}
+                                {faqCtaSubtitle}
                             </p>
                             <a
                                 href={whatsappUrl}
@@ -129,7 +134,7 @@ export default function FaqSection() {
                                 className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition-all hover:bg-darkprimary hover:shadow-sm"
                             >
                                 <MessageCircle className="h-4 w-4" />
-                                <span>{t('Chat on WhatsApp')}</span>
+                                <span>{faqCtaButton}</span>
                             </a>
                         </div>
                     </div>

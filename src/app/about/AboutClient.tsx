@@ -4,9 +4,20 @@ import HeroSub from '@/components/layout/HeroSub';
 import { Code2, Home, Rocket, User, Users } from 'lucide-react';
 import React from 'react';
 import { useI18n } from '@/components/providers/I18nProvider';
+import { getCmsMediaUrl } from '@/lib/cms';
+import { CmsSiteSettings } from '@/lib/cms';
 
-export default function AboutClient() {
+interface AboutClientProps {
+    settings?: CmsSiteSettings;
+}
+
+export default function AboutClient({ settings }: AboutClientProps) {
     const { t } = useI18n();
+
+    const aboutTitle = settings?.about_title || t('Empowering the Next Generation of Innovators');
+    const aboutSubtitle = settings?.about_subtitle || t("Uma Coding is dedicated to nurturing young innovators in a supportive, private environment where learning to code is a journey of growth. Inspired by the philosophy of 'Uma', we provide the perfect ground for your child's logic and creativity to flourish every day.");
+    const aboutMission = settings?.about_mission || t('To render high-quality coding education accessible to everyone, regardless of their background. We strive to cultivate a community of passionate learners who are ready to tackle real-world challenges with confidence and innovation.');
+    const aboutVision = settings?.about_vision || t('To become the global standard for coding bootcamps/competitions, where theoretical knowledge meets practical application. We see a world where every student has the tools to turn their ideas into reality.');
 
     const breadcrumbs = [
         { href: '/', text: 'Home' },
@@ -17,8 +28,8 @@ export default function AboutClient() {
         <div>
             <HeroSub
                 headingType="h1"
-                title="Empowering the Next Generation of Innovators"
-                description="Uma Coding is dedicated to nurturing young innovators in a supportive, private environment where learning to code is a journey of growth. Inspired by the philosophy of 'Uma', we provide the perfect ground for your child's logic and creativity to flourish every day."
+                title={aboutTitle}
+                description={aboutSubtitle}
                 breadcrumbLinks={breadcrumbs}
                 className="pb-24 md:pb-32"
                 titleClassName="max-w-3xl"
@@ -33,8 +44,8 @@ export default function AboutClient() {
                                 <h2 className="mb-4 text-3xl font-bold text-secondary dark:text-white">
                                     {t('Our Mission')}
                                 </h2>
-                                <p className="text-body-color text-lg leading-relaxed dark:text-white/70">
-                                    {t('To render high-quality coding education accessible to everyone, regardless of their background. We strive to cultivate a community of passionate learners who are ready to tackle real-world challenges with confidence and innovation.')}
+                                <p className="text-body-color text-lg leading-relaxed dark:text-white/70 whitespace-pre-line">
+                                    {aboutMission}
                                 </p>
                             </div>
                         </div>
@@ -43,8 +54,8 @@ export default function AboutClient() {
                                 <h2 className="mb-4 text-3xl font-bold text-secondary dark:text-white">
                                     {t('Our Vision')}
                                 </h2>
-                                <p className="text-body-color text-lg leading-relaxed dark:text-white/70">
-                                    {t('To become the global standard for coding bootcamps/competitions, where theoretical knowledge meets practical application. We see a world where every student has the tools to turn their ideas into reality.')}
+                                <p className="text-body-color text-lg leading-relaxed dark:text-white/70 whitespace-pre-line">
+                                    {aboutVision}
                                 </p>
                             </div>
                         </div>
@@ -52,15 +63,17 @@ export default function AboutClient() {
                 </div>
             </section>
 
+
+
             {/* Stats Section */}
             <section className="relative z-10 py-16 md:py-20 lg:py-24">
                 <div className="container mx-auto px-4">
                     <div className="mx-auto mb-16 max-w-200 text-center" data-aos="fade-up">
                         <h2 className="mb-4 text-3xl font-bold text-secondary sm:text-4xl dark:text-white">
-                            {t('Our Impact in Numbers')}
+                            {settings?.stats_title || t('Our Impact in Numbers')}
                         </h2>
                         <p className="text-body-color text-base dark:text-white/70">
-                            {t("We are proud of our growing community and the milestones we've achieved together.")}
+                            {settings?.stats_subtitle || t("We are proud of our growing community and the milestones we've achieved together.")}
                         </p>
                     </div>
                     <div className="flex flex-wrap justify-center gap-8 md:gap-16">
@@ -69,7 +82,7 @@ export default function AboutClient() {
                             data-aos="fade-up"
                             data-aos-delay="100"
                         >
-                            <h3 className="text-primary mb-2 text-4xl font-bold">50+</h3>
+                            <h3 className="text-primary mb-2 text-4xl font-bold">{settings?.stats_students || '50+'}</h3>
                             <p className="text-body-color text-base font-medium dark:text-white/70">
                                 {t('Students Enrolled')}
                             </p>
@@ -79,7 +92,7 @@ export default function AboutClient() {
                             data-aos="fade-up"
                             data-aos-delay="200"
                         >
-                            <h3 className="text-primary mb-2 text-4xl font-bold">10+</h3>
+                            <h3 className="text-primary mb-2 text-4xl font-bold">{settings?.stats_courses || '10+'}</h3>
                             <p className="text-body-color text-base font-medium dark:text-white/70">
                                 {t('Courses')}
                             </p>
@@ -89,7 +102,7 @@ export default function AboutClient() {
                             data-aos="fade-up"
                             data-aos-delay="300"
                         >
-                            <h3 className="text-primary mb-2 text-4xl font-bold">10+</h3>
+                            <h3 className="text-primary mb-2 text-4xl font-bold">{settings?.stats_mentors || '10+'}</h3>
                             <p className="text-body-color text-base font-medium dark:text-white/70">
                                 {t('Expert Mentors')}
                             </p>
@@ -103,13 +116,13 @@ export default function AboutClient() {
                 <div className="container mx-auto px-4">
                     <div className="mx-auto mb-16 max-w-200 text-center" data-aos="fade-up">
                         <span className="bg-primary/10 text-primary mb-4 inline-block rounded-full px-4 py-2 text-sm font-semibold">
-                            {t('What We Offer')}
+                            {settings?.about_programs_label || t('What We Offer')}
                         </span>
                         <h2 className="mb-4 text-3xl font-bold text-secondary sm:text-4xl dark:text-white">
-                            {t('Our Educational Programs')}
+                            {settings?.about_programs_title || t('Our Educational Programs')}
                         </h2>
                         <p className="text-body-color text-base dark:text-white/70">
-                            {t("Tailored learning paths for every stage of your child's coding journey.")}
+                            {settings?.about_programs_subtitle || t("Tailored learning paths for every stage of your child's coding journey.")}
                         </p>
                     </div>
 
@@ -123,14 +136,14 @@ export default function AboutClient() {
                                 <div>
                                     <h3 className="flex items-center gap-3 text-2xl font-bold text-secondary dark:text-white">
                                         <Rocket className="text-primary h-6 w-6" />
-                                        {t('Junior Program')}
+                                        {settings?.about_junior_title || t('Junior Program')}
                                     </h3>
                                     <p className="text-body-color mt-1 text-sm dark:text-white/60">
-                                        {t('Building logic & creativity')}
+                                        {settings?.about_junior_subtitle || t('Building logic & creativity')}
                                     </p>
                                 </div>
                                 <span className="bg-primary/10 text-primary self-start rounded-full px-3 py-1 text-xs font-bold sm:self-center">
-                                    {t('Ages 6-12')}
+                                    {settings?.about_junior_tag || t('Ages 6-12')}
                                 </span>
                             </div>
 
@@ -141,10 +154,10 @@ export default function AboutClient() {
                                     </div>
                                     <div>
                                         <h4 className="mb-1 text-base font-bold text-gray-900 dark:text-white">
-                                            {t('Regular Class')}
+                                            {settings?.about_junior_regular_title || t('Regular Class')}
                                         </h4>
                                         <p className="text-body-color text-sm leading-relaxed dark:text-white/60">
-                                            {t('Small group sessions (max 4) fostering collaboration and peer learning while mastering the basics.')}
+                                            {settings?.about_junior_regular_desc || t('Small group sessions (max 4) fostering collaboration and peer learning while mastering the basics.')}
                                         </p>
                                     </div>
                                 </div>
@@ -155,10 +168,10 @@ export default function AboutClient() {
                                     </div>
                                     <div>
                                         <h4 className="mb-1 text-base font-bold text-gray-900 dark:text-white">
-                                            {t('Private Class')}
+                                            {settings?.about_junior_private_title || t('Private Class')}
                                         </h4>
                                         <p className="text-body-color text-sm leading-relaxed dark:text-white/60">
-                                            {t('One-on-one mentorship for personalized attention and accelerated learning pace.')}
+                                            {settings?.about_junior_private_desc || t('One-on-one mentorship for personalized attention and accelerated learning pace.')}
                                         </p>
                                     </div>
                                 </div>
@@ -169,10 +182,10 @@ export default function AboutClient() {
                                     </div>
                                     <div>
                                         <h4 className="mb-1 text-base font-bold text-gray-900 dark:text-white">
-                                            {t('Homeschooling Class')}
+                                            {settings?.about_junior_homeschool_title || t('Homeschooling Class')}
                                         </h4>
                                         <p className="text-body-color text-sm leading-relaxed dark:text-white/60">
-                                            {t('Flexible scheduling designed to integrate seamlessly with homeschooling curriculums.')}
+                                            {settings?.about_junior_homeschool_desc || t('Flexible scheduling designed to integrate seamlessly with homeschooling curriculums.')}
                                         </p>
                                     </div>
                                 </div>
@@ -188,14 +201,14 @@ export default function AboutClient() {
                                 <div>
                                     <h3 className="flex items-center gap-3 text-2xl font-bold text-secondary dark:text-white">
                                         <Code2 className="text-primary h-6 w-6" />
-                                        {t('Senior Program')}
+                                        {settings?.about_senior_title || t('Senior Program')}
                                     </h3>
                                     <p className="text-body-color mt-1 text-sm dark:text-white/60">
-                                        {t('Professional development & career')}
+                                        {settings?.about_senior_subtitle || t('Professional development & career')}
                                     </p>
                                 </div>
                                 <span className="bg-primary/10 text-primary self-start rounded-full px-3 py-1 text-xs font-bold sm:self-center">
-                                    {t('Ages 13+')}
+                                    {settings?.about_senior_tag || t('Ages 13+')}
                                 </span>
                             </div>
 
@@ -206,10 +219,10 @@ export default function AboutClient() {
                                     </div>
                                     <div>
                                         <h4 className="mb-1 text-base font-bold text-gray-900 dark:text-white">
-                                            {t('Regular Class')}
+                                            {settings?.about_senior_regular_title || t('Regular Class')}
                                         </h4>
                                         <p className="text-body-color text-sm leading-relaxed dark:text-white/60">
-                                            {t('Advanced group study focusing on project development and teamwork skills.')}
+                                            {settings?.about_senior_regular_desc || t('Advanced group study focusing on project development and teamwork skills.')}
                                         </p>
                                     </div>
                                 </div>
@@ -220,10 +233,10 @@ export default function AboutClient() {
                                     </div>
                                     <div>
                                         <h4 className="mb-1 text-base font-bold text-gray-900 dark:text-white">
-                                            {t('Private Class')}
+                                            {settings?.about_senior_private_title || t('Private Class')}
                                         </h4>
                                         <p className="text-body-color text-sm leading-relaxed dark:text-white/60">
-                                            {t('Intensive individual coaching for specialized topics and portfolio building.')}
+                                            {settings?.about_senior_private_desc || t('Intensive individual coaching for specialized topics and portfolio building.')}
                                         </p>
                                     </div>
                                 </div>
@@ -234,10 +247,10 @@ export default function AboutClient() {
                                     </div>
                                     <div>
                                         <h4 className="mb-1 text-base font-bold text-gray-900 dark:text-white">
-                                            {t('Homeschooling Class')}
+                                            {settings?.about_senior_homeschool_title || t('Homeschooling Class')}
                                         </h4>
                                         <p className="text-body-color text-sm leading-relaxed dark:text-white/60">
-                                            {t('Comprehensive computer science education tailored for homeschool requirements.')}
+                                            {settings?.about_senior_homeschool_desc || t('Comprehensive computer science education tailored for homeschool requirements.')}
                                         </p>
                                     </div>
                                 </div>
@@ -257,7 +270,7 @@ export default function AboutClient() {
                         >
                             <div className="relative overflow-hidden rounded-lg shadow-xl">
                                 <img
-                                    src="/images/about/student.webp"
+                                    src={getCmsMediaUrl(settings?.about_why_image) || '/images/about/student.webp'}
                                     alt="Uma Coding student learning programming in Bali classroom"
                                     className="aspect-4/3 h-auto w-full object-cover"
                                 />
@@ -266,13 +279,13 @@ export default function AboutClient() {
                         <div className="w-full px-4 lg:w-1/2" data-aos="fade-left">
                             <div className="lg:pl-10">
                                 <span className="text-primary mb-2 block text-lg font-semibold">
-                                    {t('Why Choose Umacoding?')}
+                                    {settings?.about_why_tag || t('Why Choose Umacoding?')}
                                 </span>
                                 <h2 className="mb-6 text-3xl font-bold text-secondary sm:text-4xl dark:text-white">
-                                    {t("We Don't Just Teach Code, We Build Careers (and Winners)")}
+                                    {settings?.about_why_title || t("We Don't Just Teach Code, We Build Careers (and Winners)")}
                                 </h2>
                                 <p className="text-body-color mb-8 text-base dark:text-white/70">
-                                    {t("Our curriculum is designed to bridge the gap between academic theory and industry demands. Whether you're a complete beginner or looking to upskill, we provide the environment you need to succeed.")}
+                                    {settings?.about_why_subtitle || t("Our curriculum is designed to bridge the gap between academic theory and industry demands. Whether you're a complete beginner or looking to upskill, we provide the environment you need to succeed.")}
                                 </p>
                                 <div className="space-y-4">
                                     <div className="flex items-center">
@@ -293,10 +306,10 @@ export default function AboutClient() {
                                         </div>
                                         <div>
                                             <h4 className="mb-1 text-lg font-bold text-secondary dark:text-white">
-                                                {t('Hands-on Projects')}
+                                                {settings?.about_why_point1_title || t('Hands-on Projects')}
                                             </h4>
                                             <p className="text-body-color text-sm dark:text-white/70">
-                                                {t('Learn by doing with our project-based curriculum.')}
+                                                {settings?.about_why_point1_desc || t('Learn by doing with our project-based curriculum.')}
                                             </p>
                                         </div>
                                     </div>
@@ -321,10 +334,10 @@ export default function AboutClient() {
                                         </div>
                                         <div>
                                             <h4 className="mb-1 text-lg font-bold text-secondary dark:text-white">
-                                                {t('Expert Mentorship')}
+                                                {settings?.about_why_point2_title || t('Expert Mentorship')}
                                             </h4>
                                             <p className="text-body-color text-sm dark:text-white/70">
-                                                {t('Guidance from industry professionals at every step.')}
+                                                {settings?.about_why_point2_desc || t('Guidance from industry professionals at every step.')}
                                             </p>
                                         </div>
                                     </div>
@@ -347,10 +360,10 @@ export default function AboutClient() {
                                         </div>
                                         <div>
                                             <h4 className="mb-1 text-lg font-bold text-secondary dark:text-white">
-                                                {t('Job Readiness')}
+                                                {settings?.about_why_point3_title || t('Job Readiness')}
                                             </h4>
                                             <p className="text-body-color text-sm dark:text-white/70">
-                                                {t('Focus on skills that top employers are looking for.')}
+                                                {settings?.about_why_point3_desc || t('Focus on skills that top employers are looking for.')}
                                             </p>
                                         </div>
                                     </div>

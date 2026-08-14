@@ -48,12 +48,12 @@ export default async function HomePage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(eduSchema) }}
             />
-            <Hero />
+            <Hero settings={settings} />
             <TargetAudience settings={settings} />
             <LearningMethods settings={settings} />
-            <FeaturedCourses courses={courses} />
-            <WhyChoose courses={courses} />
-            <FaqSection />
+            <FeaturedCourses courses={courses} settings={settings} />
+            <WhyChoose courses={courses} settings={settings} />
+            <FaqSection settings={settings} />
         </>
     );
 }

@@ -7,12 +7,17 @@ import { useI18n } from '@/components/providers/I18nProvider';
 
 interface Props {
     courses: Course[];
+    settings?: Record<string, string>;
 }
 
-export default function FeaturedCourses({ courses }: Props) {
+export default function FeaturedCourses({ courses, settings }: Props) {
     const { t } = useI18n();
 
     if (!courses || courses.length === 0) return null;
+
+    const featuredLabel = settings?.featured_label || t('Top Picked Courses');
+    const featuredTitle = settings?.featured_title || t('Featured Courses');
+    const featuredSubtitle = settings?.featured_subtitle || t('Start your coding journey with our best programs tailored for various ages and skill levels.');
 
     return (
         <section className="dark:bg-darkmode relative overflow-hidden bg-white py-24">
@@ -22,11 +27,11 @@ export default function FeaturedCourses({ courses }: Props) {
                     data-aos="fade-up"
                 >
                     <p className="mb-2 text-lg font-bold text-primary">
-                        {t('Top Picked Courses')}
+                        {featuredLabel}
                     </p>
-                    <h2 className="mb-4 text-3xl font-bold text-secondary md:text-4xl lg:text-[40px] dark:text-white" id="programs">{t('Featured Courses')}</h2>
+                    <h2 className="mb-4 text-3xl font-bold text-secondary md:text-4xl lg:text-[40px] dark:text-white" id="programs">{featuredTitle}</h2>
                     <p className="text-SlateBlueText dark:text-opacity-80 mx-auto max-w-2xl text-lg">
-                        {t('Start your coding journey with our best programs tailored for various ages and skill levels.')}
+                        {featuredSubtitle}
                     </p>
                 </div>
 

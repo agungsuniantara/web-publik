@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import HeroSub from '@/components/layout/HeroSub';
 import BlogCard from '@/components/blogs/BlogCard';
-import BlogCategoryFilter from '@/components/blogs/BlogCategoryFilter';
 import { Blog, PaginatedData } from '@/types';
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getCmsBlogs } from '@/lib/cms';
@@ -33,21 +32,20 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-    searchParams: Promise<{ search?: string; category?: string; page?: string; per_page?: string }>;
+    searchParams: Promise<{ search?: string; page?: string; per_page?: string }>;
 }
 
-async function getBlogs(category?: string, search?: string, page?: string, perPage?: string): Promise<PaginatedData<Blog>> {
-    return getCmsBlogs(category, search, page, perPage);
+async function getBlogs(search?: string, page?: string, perPage?: string): Promise<PaginatedData<Blog>> {
+    return getCmsBlogs(undefined, search, page, perPage);
 }
 
 export default async function BlogsPage({ searchParams }: PageProps) {
     const resolvedSearchParams = await searchParams;
     const search = resolvedSearchParams?.search || '';
-    const category = resolvedSearchParams?.category || 'all';
     const page = resolvedSearchParams?.page || '1';
     const perPage = resolvedSearchParams?.per_page || '12';
 
-    const paginatedBlogs = await getBlogs(category, search, page, perPage);
+    const paginatedBlogs = await getBlogs(search, page, perPage);
     const posts = paginatedBlogs.data || [];
 
     const breadcrumbs = [
@@ -104,16 +102,10 @@ export default async function BlogsPage({ searchParams }: PageProps) {
                             placeholder="Cari artikel blog..."
                             className="text-secondary placeholder:text-SlateBlueText dark:bg-darklight dark:border-gray-800 w-full rounded-full border border-gray-200 bg-white py-5 pr-6 pl-16 text-lg shadow-[0px_6px_10px_0px_#00000026] transition-all focus:ring-2 focus:ring-primary/20 focus:outline-none dark:text-white"
                         />
-                        <input type="hidden" name="category" value={category} />
                     </form>
                 </div>
 
                 <div className="container relative pt-12 md:pt-14" id="blog">
-                    {/* Category Filter Tabs */}
-                    <div className="mb-12" data-aos="fade-up">
-                        <BlogCategoryFilter activeCategory={category} searchQuery={search} />
-                    </div>
-
                     <div className="mb-16">
                         {posts.length > 0 ? (
                             <>
@@ -129,7 +121,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
                                     <div className="mt-14 flex flex-wrap items-center justify-center gap-2">
                                         {paginatedBlogs.current_page > 1 && (
                                             <Link
-                                                href={`/blogs?category=${encodeURIComponent(category)}&page=${paginatedBlogs.current_page - 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                href={`/blogs?page=${paginatedBlogs.current_page - 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
                                                 scroll={false}
                                                 className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:bg-primary hover:text-white dark:border-gray-800 dark:bg-darklight dark:text-gray-300"
                                                 aria-label="Previous Page"
@@ -141,7 +133,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
                                         {Array.from({ length: paginatedBlogs.last_page }, (_, i) => i + 1).map((pageNum) => (
                                             <Link
                                                 key={pageNum}
-                                                href={`/blogs?category=${encodeURIComponent(category)}&page=${pageNum}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                href={`/blogs?page=${pageNum}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
                                                 scroll={false}
                                                 className={`flex h-11 min-w-[44px] items-center justify-center rounded-xl px-4 text-base font-semibold shadow-sm transition ${
                                                     pageNum === paginatedBlogs.current_page
@@ -155,7 +147,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
 
                                         {paginatedBlogs.current_page < paginatedBlogs.last_page && (
                                             <Link
-                                                href={`/blogs?category=${encodeURIComponent(category)}&page=${paginatedBlogs.current_page + 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                href={`/blogs?page=${paginatedBlogs.current_page + 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
                                                 scroll={false}
                                                 className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:bg-primary hover:text-white dark:border-gray-800 dark:bg-darklight dark:text-gray-300"
                                                 aria-label="Next Page"

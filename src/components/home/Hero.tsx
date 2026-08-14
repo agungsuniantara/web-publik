@@ -3,10 +3,20 @@
 import Link from 'next/link';
 import { CheckCircle2, Code2, Terminal } from 'lucide-react';
 import { useI18n } from '@/components/providers/I18nProvider';
+import { CmsSiteSettings } from '@/lib/cms';
 
-export default function Hero() {
+interface HeroProps {
+    settings?: CmsSiteSettings;
+}
+
+export default function Hero({ settings }: HeroProps) {
     const { t } = useI18n();
-    const whatsappUrl = 'https://wa.me/6289602402811?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding';
+    const waNumber = settings?.hero_whatsapp_number || '6289602402811';
+    const whatsappUrl = `https://wa.me/${waNumber}?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding`;
+
+    const heroTitle = settings?.hero_title || t('Private Coding Classes Direct to Your Home');
+    const heroSubtitle = settings?.hero_subtitle || t('Coding courses for kids, teens, and adults with options for private classes at home, small groups, offline, and online. Learning programs are tailored to the age, skill level, and goals of each student.');
+    const heroCtaText = settings?.hero_cta_text || t('Ask for Schedule via WhatsApp');
 
     return (
         <section className="dark:bg-darkmode relative overflow-hidden py-12 lg:py-20">
@@ -14,24 +24,12 @@ export default function Hero() {
                 <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-24">
                     {/* Left Side Content */}
                     <div className="w-full lg:w-1/2">
-                        <div
-                            data-aos="fade-up"
-                            data-aos-delay="200"
-                            className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-blue-700 dark:bg-primary/20 dark:text-sky-300"
-                        >
-                            <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
-                            </span>
-                            {t('Choose Your Learning Method')}
-                        </div>
-
                         <h1
                             className="mb-6 text-4xl font-bold leading-tight text-secondary md:text-5xl lg:text-6xl dark:text-white"
                             data-aos="fade-up"
                             data-aos-delay="300"
                         >
-                            {t('Private Coding Classes Direct to Your Home')}
+                            {heroTitle}
                         </h1>
 
                         <p
@@ -39,7 +37,7 @@ export default function Hero() {
                             data-aos-delay="400"
                             className="text-SlateBlueText mb-8 max-w-lg text-lg font-normal md:text-xl dark:text-gray-300"
                         >
-                            {t('Coding courses for kids, teens, and adults with options for private classes at home, small groups, offline, and online. Learning programs are tailored to the age, skill level, and goals of each student.')}
+                            {heroSubtitle}
                         </p>
 
                         <div className="flex flex-wrap items-center gap-4">
@@ -68,7 +66,7 @@ export default function Hero() {
                                         <path d="M22 10v6" />
                                         <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
                                     </svg>
-                                    {t('Ask for Schedule via WhatsApp')}
+                                    {heroCtaText}
                                 </span>
                             </a>
                             <Link

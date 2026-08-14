@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import AboutClient from './AboutClient';
+import { getCmsSettings } from '@/lib/cms';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
     title: 'Tentang Uma Coding - Kursus Coding di Bali',
@@ -22,13 +25,15 @@ export const metadata: Metadata = {
     },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+    const settings = await getCmsSettings();
+
     const aboutSchema = {
         '@context': 'https://schema.org',
         '@type': 'AboutPage',
         name: 'About Uma Coding Bali',
         description:
-            'Uma Coding is dedicated to nurturing young innovators in a supportive, private environment where learning to code is a journey of growth.',
+            settings.about_subtitle || 'Uma Coding is dedicated to nurturing young innovators in a supportive, private environment where learning to code is a journey of growth.',
         url: 'https://umacoding.com/about',
         mainEntity: {
             '@type': 'EducationalOrganization',
@@ -43,7 +48,7 @@ export default function AboutPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
             />
-            <AboutClient />
+            <AboutClient settings={settings} />
         </>
     );
 }

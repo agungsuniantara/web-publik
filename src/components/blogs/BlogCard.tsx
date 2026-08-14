@@ -28,13 +28,6 @@ export default function BlogCard({ blog }: { blog: Blog }) {
                     )}
                 </Link>
             </div>
-            {blog.category && (
-                <div className="absolute top-0 mt-4 ml-4 rounded bg-primary px-5 py-2">
-                    <span className="text-sm font-medium text-white">
-                        {blog.category.split(',')[0].trim()}
-                    </span>
-                </div>
-            )}
             <div>
                 <h3>
                     <Link

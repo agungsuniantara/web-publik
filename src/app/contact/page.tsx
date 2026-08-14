@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import ContactClient from './ContactClient';
+import { getCmsSettings } from '@/lib/cms';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
     title: 'Contact Us - Get in Touch',
@@ -22,7 +25,12 @@ export const metadata: Metadata = {
     },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+    const settings = await getCmsSettings();
+    const phone = settings.contact_phone || '+62 896-0240-2811';
+    const email = settings.contact_email || 'info@umacoding.com';
+    const address = settings.contact_address || 'Melayani private coding class ke rumah, kelas offline, dan kelas online di Bali';
+
     const contactSchema = {
         '@context': 'https://schema.org',
         '@type': 'ContactPage',
@@ -31,11 +39,11 @@ export default function ContactPage() {
         mainEntity: {
             '@type': 'EducationalOrganization',
             name: 'Uma Coding',
-            telephone: '+62 896-0240-2811',
-            email: 'umacoding.bali@gmail.com',
+            telephone: phone,
+            email: email,
             address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Melayani private coding class ke rumah, kelas offline, dan kelas online di Bali',
+                streetAddress: address,
                 addressLocality: 'Denpasar',
                 addressRegion: 'Bali',
                 addressCountry: 'ID',
@@ -49,7 +57,7 @@ export default function ContactPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
             />
-            <ContactClient />
+            <ContactClient settings={settings} />
         </>
     );
 }

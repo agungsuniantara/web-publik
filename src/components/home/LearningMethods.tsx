@@ -1,14 +1,15 @@
 'use client';
 
 import { Home, Users, MapPin, Laptop } from 'lucide-react';
+import { getCmsMediaUrl } from '@/lib/cms';
 
 interface LearningMethodsProps {
     settings?: Record<string, string>;
 }
 
 export default function LearningMethods({ settings = {} }: LearningMethodsProps) {
-    const title = settings.section_methods_title || 'Pilih Cara Belajar yang Sesuai';
-    const subtitle = settings.section_methods_subtitle || 'Kami menyediakan berbagai metode belajar yang fleksibel sesuai kebutuhan Anda.';
+    const title = settings.section_method_title || settings.section_methods_title || 'Pilihan Metode Pembelajaran';
+    const subtitle = settings.section_method_subtitle || settings.section_methods_subtitle || 'Kami menyediakan berbagai metode belajar yang fleksibel sesuai kebutuhan Anda.';
 
     const methods = [
         {
@@ -63,7 +64,7 @@ export default function LearningMethods({ settings = {} }: LearningMethodsProps)
                         >
                             <div className="mb-6 overflow-hidden flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 transition-colors group-hover:bg-primary/20">
                                 {item.image ? (
-                                    <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
+                                    <img src={getCmsMediaUrl(item.image) || item.image} alt={item.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                                 ) : (
                                     item.icon
                                 )}

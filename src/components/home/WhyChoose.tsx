@@ -7,9 +7,10 @@ import { useI18n } from '@/components/providers/I18nProvider';
 
 interface Props {
     courses?: Course[];
+    settings?: Record<string, string>;
 }
 
-export default function WhyChoose({ courses = [] }: Props) {
+export default function WhyChoose({ courses = [], settings }: Props) {
     const { t } = useI18n();
 
     const maxVisibleCourses = 7;
@@ -27,7 +28,12 @@ export default function WhyChoose({ courses = [] }: Props) {
         'Logic & Thinking',
     ];
 
-    const whatsappUrl = 'https://wa.me/6289602402811?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding';
+    const waNumber = settings?.hero_whatsapp_number || settings?.contact_whatsapp || '6289602402811';
+    const whatsappUrl = `https://wa.me/${waNumber}?text=Halo%20Uma%20Coding,%20saya%20ingin%20bertanya%20tentang%20jadwal%20dan%20program%20kursus%20coding`;
+
+    const whyChooseLabel = settings?.why_choose_label || t('Why Parents Choose Uma Coding');
+    const whyChooseTitle = settings?.why_choose_title || t('Why Choose Uma Coding?');
+    const whyChooseSubtitle = settings?.why_choose_subtitle || t('Uma Coding is a trusted coding class provider that helps kids, teens, and adults learn programming through practical projects, friendly mentors, and interactive classes. We are here to help every student achieve their goals.');
 
     return (
         <section className="dark:bg-darkmode bg-white py-24">
@@ -37,13 +43,13 @@ export default function WhyChoose({ courses = [] }: Props) {
                     data-aos="fade-up"
                 >
                     <span className="mb-3 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold tracking-wider text-primary uppercase dark:bg-primary/20">
-                        {t('Why Parents Choose Uma Coding')}
+                        {whyChooseLabel}
                     </span>
                     <h2 className="mb-4 max-w-4xl text-3xl font-extrabold tracking-tight text-secondary md:text-4xl dark:text-white">
-                        {t('Why Choose Uma Coding?')}
+                        {whyChooseTitle}
                     </h2>
                     <p className="text-SlateBlueText dark:text-opacity-80 mx-auto max-w-3xl text-lg leading-relaxed">
-                        {t('Uma Coding is a trusted coding class provider that helps kids, teens, and adults learn programming through practical projects, friendly mentors, and interactive classes. We are here to help every student achieve their goals.')}
+                        {whyChooseSubtitle}
                     </p>
                 </div>
 
