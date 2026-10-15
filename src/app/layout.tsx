@@ -17,7 +17,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://umacoding.com';
 export const metadata: Metadata = {
     metadataBase: new URL(siteUrl),
     title: {
-        default: 'Kursus Coding Private, Offline & Online di Bali | Uma Coding',
+        default: 'Kursus Coding Private & Online di Bali | Uma Coding',
         template: '%s | Uma Coding',
     },
     description:
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         canonical: './',
     },
     openGraph: {
-        title: 'Kursus Coding Private, Offline & Online di Bali | Uma Coding',
+        title: 'Kursus Coding Private & Online di Bali | Uma Coding',
         description:
             'Kursus coding untuk anak, remaja, & dewasa di Bali. Tersedia kelas private, group, offline, & online sesuai usia dan tujuan belajar.',
         url: siteUrl,
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Kursus Coding Private, Offline & Online di Bali | Uma Coding',
+        title: 'Kursus Coding Private & Online di Bali | Uma Coding',
         description:
             'Kursus coding untuk anak, remaja, & dewasa di Bali. Tersedia kelas private, group, offline, & online sesuai usia dan tujuan belajar.',
         site: '@umacoding',

@@ -5,7 +5,7 @@ import { getCmsSettings } from '@/lib/cms';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-    title: 'Tentang Uma Coding - Kursus Coding di Bali',
+    title: 'Tentang Kami - Kursus Coding di Bali',
     description:
         'Pelajari tentang Uma Coding, penyedia kursus coding untuk anak, remaja, & dewasa di Bali. Memberdayakan inovator muda dengan pemrograman.',
     keywords: [
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         canonical: './',
     },
     openGraph: {
-        title: 'Tentang Uma Coding - Kursus Coding di Bali',
+        title: 'Tentang Kami - Kursus Coding di Bali',
         description:
             'Pelajari tentang Uma Coding, penyedia kursus coding untuk anak, remaja, & dewasa di Bali. Memberdayakan inovator muda dengan pemrograman.',
         url: 'https://umacoding.com/about',

@@ -3,6 +3,7 @@ import { Blog } from '@/types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getCmsBlogBySlug } from '@/lib/cms';
+import { formatMetaTitle } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,10 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const cleanExcerpt = rawExcerpt.slice(0, 145);
     const coverImage = post.cover_image_path || post.cover_image;
 
-    const maxTitleLength = 60;
-    const metaTitle = post.title.length > maxTitleLength
-        ? `${post.title.substring(0, maxTitleLength - 3)}...`
-        : post.title;
+    const metaTitle = formatMetaTitle(post.title, 52);
 
     return {
         title: {
@@ -69,7 +67,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
     });
 
     const shareUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://umacoding.com';
-    const postUrl = `${shareUrl}/blogs/${post.slug}`;
+    const postUrl = `${shareUrl}/blog/${post.slug}`;
 
     const blogSchema = {
         '@context': 'https://schema.org',
@@ -176,7 +174,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
                             <div className="mt-8">
                                 <Link
-                                    href="/blogs"
+                                    href="/blog"
                                     className="btn_outline btn-2 hover-outline-slide-down rounded-lg"
                                 >
                                     <span className="!px-6 !py-3">← Back to Articles</span>

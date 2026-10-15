@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         title: 'Coding Blog: Tips, Guides & Insights',
         description:
             'Discover coding articles for parents, kids, and teens in Bali. Learn about Scratch, Roblox, Python, Java, and tips for choosing the right class.',
-        url: 'https://umacoding.com/blogs',
+        url: 'https://umacoding.com/blog',
     },
 };
 
@@ -50,14 +50,14 @@ export default async function BlogsPage({ searchParams }: PageProps) {
 
     const breadcrumbs = [
         { href: '/', text: 'Beranda' },
-        { href: '/blogs', text: 'Blog' },
+        { href: '/blog', text: 'Blog' },
     ];
 
     const collectionSchema = {
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
         name: 'Coding Blog & Articles at Uma Coding Bali',
-        url: 'https://umacoding.com/blogs',
+        url: 'https://umacoding.com/blog',
         description: 'Read tips, guides, and tutorials on coding for kids, teens, and parents in Bali.',
         mainEntity: {
             '@type': 'ItemList',
@@ -65,7 +65,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
                 '@type': 'ListItem',
                 position: index + 1,
                 name: p.title,
-                url: `https://umacoding.com/blogs/${p.slug}`,
+                url: `https://umacoding.com/blog/${p.slug}`,
             })),
         },
     };
@@ -91,7 +91,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
                     className="absolute top-0 right-0 left-0 z-20 flex -translate-y-1/2 justify-center px-4"
                     data-aos="fade-up"
                 >
-                    <form action="/blogs" method="GET" className="relative w-full max-w-2xl">
+                    <form action="/blog" method="GET" className="relative w-full max-w-2xl">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-6">
                             <Search className="text-SlateBlueText h-6 w-6" />
                         </div>
@@ -121,7 +121,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
                                     <div className="mt-14 flex flex-wrap items-center justify-center gap-2">
                                         {paginatedBlogs.current_page > 1 && (
                                             <Link
-                                                href={`/blogs?page=${paginatedBlogs.current_page - 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                href={`/blog?page=${paginatedBlogs.current_page - 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
                                                 scroll={false}
                                                 className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:bg-primary hover:text-white dark:border-gray-800 dark:bg-darklight dark:text-gray-300"
                                                 aria-label="Previous Page"
@@ -133,7 +133,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
                                         {Array.from({ length: paginatedBlogs.last_page }, (_, i) => i + 1).map((pageNum) => (
                                             <Link
                                                 key={pageNum}
-                                                href={`/blogs?page=${pageNum}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                href={`/blog?page=${pageNum}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
                                                 scroll={false}
                                                 className={`flex h-11 min-w-[44px] items-center justify-center rounded-xl px-4 text-base font-semibold shadow-sm transition ${
                                                     pageNum === paginatedBlogs.current_page
@@ -147,7 +147,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
 
                                         {paginatedBlogs.current_page < paginatedBlogs.last_page && (
                                             <Link
-                                                href={`/blogs?page=${paginatedBlogs.current_page + 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
+                                                href={`/blog?page=${paginatedBlogs.current_page + 1}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
                                                 scroll={false}
                                                 className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:bg-primary hover:text-white dark:border-gray-800 dark:bg-darklight dark:text-gray-300"
                                                 aria-label="Next Page"

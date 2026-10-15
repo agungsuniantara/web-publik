@@ -55,7 +55,9 @@ rsync -az --delete \
   --exclude '.env.*' \
   --exclude '.DS_Store' \
   --exclude '*.pem' \
+  --exclude '*.key' \
   --exclude 'id_rsa*' \
+  --exclude 'id_ed25519*' \
   "$PROJECT_ROOT/" "$REMOTE:$VPS_PATH/"
 
 echo "[deploy] 📡 Executing deployment tasks on VPS via SSH..."

@@ -5,6 +5,7 @@ import { Course } from '@/types';
 import { BookOpen, CheckCircle, Clock } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getCmsProgramBySlug, getCmsPrograms } from '@/lib/cms';
+import { formatMetaTitle } from '@/lib/utils';
 import ProgramDetailClient from './ProgramDetailClient';
 
 export const dynamic = 'force-dynamic';
@@ -71,11 +72,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const cleanDesc = rawDesc.slice(0, 145);
     const image = course.image_path || course.image_url;
 
-    const maxTitleLength = 60;
     const rawTitle = `${course.title} - Coding Course Bali`;
-    const metaTitle = rawTitle.length > maxTitleLength
-        ? `${rawTitle.substring(0, maxTitleLength - 3)}...`
-        : rawTitle;
+    const metaTitle = formatMetaTitle(rawTitle, 52);
 
     return {
         title: {

@@ -33,7 +33,7 @@ export default function Footer() {
                             <Link href="/about">{t('About')}</Link>
                         </li>
                         <li className="text-lg font-normal text-[#a3bbd1] transition-all hover:text-primary sm:text-xl">
-                            <Link href="/blogs">{t('Blog')}</Link>
+                            <Link href="/blog">{t('Blog')}</Link>
                         </li>
                         <li className="text-lg font-normal text-[#a3bbd1] transition-all hover:text-primary sm:text-xl">
                             <Link href="/contact">{t('Contact')}</Link>

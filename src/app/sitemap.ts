@@ -27,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.9,
         },
         {
-            url: `${siteUrl}/blogs`,
+            url: `${siteUrl}/blog`,
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 0.9,
@@ -69,7 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             if (Array.isArray(blogs)) {
                 dynamicRoutes.push(
                     ...blogs.map((item: { slug: string; updated_at?: string; published_at?: string }) => ({
-                        url: `${siteUrl}/blogs/${item.slug}`,
+                        url: `${siteUrl}/blog/${item.slug}`,
                         lastModified: item.updated_at || item.published_at ? new Date(item.updated_at || item.published_at!) : new Date(),
                         changeFrequency: 'weekly' as const,
                         priority: 0.7,

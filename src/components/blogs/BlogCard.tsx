@@ -12,7 +12,7 @@ export default function BlogCard({ blog }: { blog: Blog }) {
     return (
         <div className="group relative">
             <div className="mb-8 overflow-hidden rounded">
-                <Link href={`/blogs/${blog.slug}`} aria-label={blog.title} className="block">
+                <Link href={`/blog/${blog.slug}`} aria-label={blog.title} className="block">
                     {imageUrl ? (
                         <img
                             src={imageUrl}
@@ -31,7 +31,7 @@ export default function BlogCard({ blog }: { blog: Blog }) {
             <div>
                 <h3>
                     <Link
-                        href={`/blogs/${blog.slug}`}
+                        href={`/blog/${blog.slug}`}
                         className="mb-4 inline-block text-[22px] font-semibold leading-8 text-black hover:text-primary dark:text-white dark:hover:text-primary"
                     >
                         {blog.title}
